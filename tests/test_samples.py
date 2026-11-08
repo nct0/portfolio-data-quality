@@ -25,12 +25,18 @@ def test_sample_output_is_current(demo, name):
         f"samples/{name} is out of date; run python scripts/make-samples.py"
 
 
+def unix_newlines(part: bytes) -> bytes:
+    """XlsxWriter writes each XML part in text mode: the newline after the XML declaration is CRLF on Windows."""
+    return part.replace(b"\r\n", b"\n")
+
+
 def test_sample_workbook_is_current(demo):
-    """Compares the unzipped parts, so a different zlib build on another system cannot cause a false failure."""
+    """Compares the unzipped parts, so another zlib build or the platform's line ending cannot cause a false failure."""
     with zipfile.ZipFile(SAMPLES / WORKBOOK) as committed, zipfile.ZipFile(demo.out / WORKBOOK) as fresh:
         assert committed.namelist() == fresh.namelist()
         for part in fresh.namelist():
-            assert committed.read(part) == fresh.read(part), f"samples/{WORKBOOK}: {part} differs"
+            assert unix_newlines(committed.read(part)) == unix_newlines(fresh.read(part)), \
+                f"samples/{WORKBOOK}: {part} differs"
 
 
 def test_samples_hold_only_regenerated_files():

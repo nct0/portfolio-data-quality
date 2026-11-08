@@ -113,7 +113,7 @@ What the client sees:
 | Metric | Before | After | Change |
 |---|---|---|---|
 | Dashboard revenue | $667,773.70 | $333,886.85, equal to the monthly sheet and the clean detail | Corrected (`test_revenue_is_not_double_counted`) |
-| Workbook | Not reproducible | Rebuilt on every run, byte-identical for the same inputs, also for incremental runs and other batch sizes | `test_workbook_bytes_are_deterministic`, `test_same_workbook_for_full_incremental_and_batch_sizes` |
+| Workbook | Not reproducible | Rebuilt on every run, byte-identical for the same inputs on the same system, also for incremental runs and other batch sizes | `test_workbook_bytes_are_deterministic`, `test_same_workbook_for_full_incremental_and_batch_sizes` |
 | Zero-quantity rows accepted under `python -O` | 10 | 0 | `test_zero_quantity_is_rejected_under_python_optimize_mode` |
 | Duplicate counts when an export is re-sent under another name | 1,664 exact, 7 conflicting | The copy is skipped as duplicate content; results unchanged | `test_same_content_under_another_name_is_not_ingested_twice` |
 | Duplicate counts when rows or files are shuffled | Changed with the order (A, A, A′ vs A, A′, A) | Identical business results | `test_classification_is_order_independent`, `test_shuffling_rows_across_files_gives_the_same_business_results` |
@@ -140,6 +140,6 @@ The benchmark figures use the same data, machine and method for both versions: f
 ## Reproducibility notes
 
 - The generator is deterministic: `generate --scenario baseline` reproduces the committed 5,020 rows byte for byte, and each scale dataset's manifest holds its exact expected results.
-- Business outputs and the workbook contain no timestamps or paths, so the same inputs give the same bytes on every run and every operating system. Run-specific details go to `processing_audit.csv` and `run_log.jsonl`.
+- Business outputs and the workbook contain no timestamps or paths, so the same inputs give the same bytes on every run. The CSV and JSON files are also identical across operating systems; the workbook's XML parts differ only in the line ending after their declaration (CRLF on Windows), which `tests/test_samples.py` allows for. Run-specific details go to `processing_audit.csv` and `run_log.jsonl`.
 - Benchmarks ran on one laptop with other software open, so times vary between runs; the tables show the range. Peak memory varied by less than 2 MiB between repeats.
 - CI runs the tests on Linux with Python 3.11 and 3.13; two tests are skipped there because they need a German locale or Windows file locking. Locally on Windows with Python 3.15.2 all tests run.

@@ -166,8 +166,8 @@ Each output file is replaced atomically, so a reader never sees a half-written f
 - Inputs are processed in sorted path order; every query has an explicit `ORDER BY`.
 - Exact duplicates keep the occurrence with the smallest (source file, source line).
 - Business outputs contain no timestamps or run IDs; those go to `processing_audit.csv`, `run_log.jsonl` and the state.
-- Line endings and encoding of every output are fixed, independent of the operating system.
-- The workbook has fixed document properties, so it is byte-identical when regenerated.
+- Line endings and encoding of every CSV and JSON output are fixed, independent of the operating system.
+- The workbook has fixed document properties, so it is byte-identical when regenerated on the same operating system. Across systems its content is the same, but XlsxWriter ends each XML part's declaration line with the platform's line ending (CRLF on Windows).
 
 ## Security and robustness
 
