@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 import zipfile
 from decimal import Decimal
@@ -19,8 +20,8 @@ from order_quality.errors import OutputError
 # openpyxl reads the workbook back but does not know Excel's data-bar extension; Excel itself shows it.
 pytestmark = pytest.mark.filterwarnings("ignore:.*extension is not supported:UserWarning")
 ALL = [*BASELINE_FILES, LATE_BATCH / "orders_export_4.csv"]
-SHEETS = ["Executive Dashboard", "Monthly Revenue", "Data Quality Summary", "Rejected Records", "Duplicate Review",
-          "Correction Log", "Clean Orders", "Processing Audit"]
+SHEETS = ["Executive Dashboard", "Monthly Revenue", "Data Quality Summary", "Reconciliation Audit", "Rejected Records",
+          "Duplicate Review", "Correction Log", "Clean Orders"]
 
 
 @pytest.fixture(scope="module")
@@ -53,6 +54,29 @@ def row_with(ws, first_value: str) -> tuple:
     raise AssertionError(f"row {first_value!r} not found")
 
 
+def cells_with(ws, prefix: str) -> list[str]:
+    return [c.value for row in ws.iter_rows() for c in row if isinstance(c.value, str) and c.value.startswith(prefix)]
+
+
+def chart_references(path: Path) -> dict[str, tuple[list[str], list[str]]]:
+    """{chart title: (category ranges, value ranges)} read from the chart parts of the workbook."""
+    charts = {}
+    with zipfile.ZipFile(path) as archive:
+        for name in archive.namelist():
+            if name.startswith("xl/charts/chart"):
+                xml = archive.read(name).decode("utf-8")
+                title = "".join(re.findall(r"<a:t>([^<]*)</a:t>", xml.split("</c:title>")[0]))
+                charts[title] = (re.findall(r"<c:cat>.*?<c:f>([^<]+)</c:f>", xml, re.S),
+                                 re.findall(r"<c:val>.*?<c:f>([^<]+)</c:f>", xml, re.S))
+    return charts
+
+
+def resolve(book, reference: str) -> list:
+    sheet, cells = reference.rsplit("!", 1)
+    found = book[sheet.strip("'")][cells.replace("$", "")]
+    return [c.value for row in found for c in row]
+
+
 def worksheet_xml(path: Path) -> dict[str, str]:
     with zipfile.ZipFile(path) as archive:
         return {name: archive.read(name).decode("utf-8") for name in archive.namelist()
@@ -70,29 +94,32 @@ def test_dashboard_tiles_equal_the_quality_report(fixture, request):
     report = json.loads((result.out / "quality_report.json").read_text(encoding="utf-8"))
     ws = load_workbook(report_path(result))["Executive Dashboard"]
     rows = report["rows"]
-    assert below(ws, "Source rows") == rows["input"]
-    assert below(ws, "Accepted orders") == rows["accepted"]
-    assert below(ws, "Rejected rows") == rows["rejected"]
-    assert below(ws, "Duplicates ignored") == rows["duplicate_ignored"]
-    assert below(ws, "Quarantined rows") == rows["quarantined_conflict"]
-    assert below(ws, "Completed orders") == report["revenue"]["orders"]
-    assert Decimal(str(below(ws, "Completed revenue"))) == Decimal(report["revenue"]["amount"])
-    assert "PASS" in str(ws["B4"].value) and report["status"] == "PASS"
+    assert below(ws, "Source Records") == rows["input"]
+    assert below(ws, "Accepted Orders") == rows["accepted"]
+    assert Decimal(str(below(ws, "Completed Revenue"))) == Decimal(report["revenue"]["amount"])
+    assert below(ws, "Reconciliation Status") == "✔ PASS" and report["status"] == "PASS"
+    assert below(ws, "Rejected Rows") == rows["rejected"]
+    assert below(ws, "Duplicates Ignored") == rows["duplicate_ignored"]
+    assert below(ws, "Quarantined Rows") == rows["quarantined_conflict"]
+    assert cells_with(ws, f"{report['revenue']['orders']:,} completed orders")
+    assert cells_with(ws, "6 of 6 checks passed")
+    assert len(cells_with(ws, "✔  ")) == 3  # the three check-summary lines
 
 
 def test_revenue_is_not_double_counted(baseline_run):
     """Baseline defect 12: the old dashboard summed the monthly rows and the TOTAL row together."""
     book = load_workbook(report_path(baseline_run))
     monthly = book["Monthly Revenue"]
-    header = row_with(monthly, "Month")
-    total = row_with(monthly, "Total")
-    month_rows = [r for r in monthly.iter_rows(min_row=6, max_row=11, values_only=True)]
+    rows = list(monthly.iter_rows(values_only=True))
+    header_at = next(i for i, r in enumerate(rows) if r[0] == "Month")
+    total_at = next(i for i, r in enumerate(rows) if i > header_at and r[0] == "Total")
+    header, total, month_rows = rows[header_at], rows[total_at], rows[header_at + 1:total_at]
     csv_total = sum((Decimal(r["revenue_usd"]) for r in read_csv(baseline_run.out / "monthly_revenue.csv")),
                     Decimal("0.00"))
     grand = Decimal(str(total[header.index("Total")]))
     assert grand == csv_total == Decimal("333886.85")
     assert sum(Decimal(str(r[header.index("Total")])) for r in month_rows) == grand
-    assert Decimal(str(below(book["Executive Dashboard"], "Completed revenue"))) == grand
+    assert Decimal(str(below(book["Executive Dashboard"], "Completed Revenue"))) == grand
 
 
 def test_detail_sheets_match_the_csv_files(late_run):
@@ -115,13 +142,81 @@ def test_correction_log_shows_every_decision(late_run):
     assert (statuses.count("APPLIED"), statuses.count("REJECTED"), statuses.count("PENDING")) == (14, 1, 2)
 
 
-def test_processing_audit_lists_inputs_and_hashes(late_run):
+def test_reconciliation_audit_holds_row_accounting_checks_inputs_and_hashes(late_run):
     report = json.loads((late_run.out / "quality_report.json").read_text(encoding="utf-8"))
-    values = {v for row in load_workbook(report_path(late_run), read_only=True)["Processing Audit"].iter_rows(
-        values_only=True) for v in row if v is not None}
+    ws = load_workbook(report_path(late_run))["Reconciliation Audit"]
+    values = {v for row in ws.iter_rows(values_only=True) for v in row if v is not None}
     for item in report["inputs"]:
         assert {item["file"], item["sha256"]} <= values
     assert {report["rules"]["sha256"], report["reference"]["sha256"]} <= values
+    assert {check["detail"] for check in report["checks"]} <= values
+    assert row_with(ws, "Source rows")[1] == report["rows"]["input"] == 5293
+    for label, key in (("Accepted", "accepted"), ("Rejected", "rejected"), ("Duplicate ignored", "duplicate_ignored"),
+                       ("Quarantined (conflict)", "quarantined_conflict")):
+        assert row_with(ws, label)[1] == report["rows"][key]
+
+
+@pytest.mark.parametrize("fixture", ["baseline_run", "late_run"])
+def test_dashboard_charts_read_the_reported_data(fixture, request):
+    result = request.getfixturevalue(fixture)
+    path = report_path(result)
+    report = json.loads((result.out / "quality_report.json").read_text(encoding="utf-8"))
+    monthly = read_csv(result.out / "monthly_revenue.csv")
+    book = load_workbook(path)
+    charts = chart_references(path)
+
+    (categories,), (values,) = charts["Monthly Completed Revenue"]
+    months = sorted({m["month"] for m in monthly})
+    assert resolve(book, categories) == [workbook._month_label(m) for m in months]
+    per_month = [sum((Decimal(m["revenue_usd"]) for m in monthly if m["month"] == month), Decimal("0.00"))
+                 for month in months]
+    assert [Decimal(str(v)).quantize(Decimal("0.01")) for v in resolve(book, values)] == per_month
+    assert sum(per_month) == Decimal(report["revenue"]["amount"])
+
+    (categories,), (values,) = charts["Revenue by Sales Channel"]
+    channels = sorted({m["channel"] for m in monthly})
+    assert resolve(book, categories) == channels
+    assert [Decimal(str(v)).quantize(Decimal("0.01")) for v in resolve(book, values)] == [
+        sum((Decimal(m["revenue_usd"]) for m in monthly if m["channel"] == c), Decimal("0.00")) for c in channels]
+
+    (categories,), (values,) = charts["Data Quality Issues"]
+    issues = sorted(report["issues"].items(), key=lambda item: (-item[1], item[0]))
+    assert resolve(book, categories) == [workbook._issue_label(code) for code, _ in issues]
+    assert resolve(book, values) == [count for _, count in issues]
+
+
+def test_dashboard_fits_one_screen_without_overlapping_charts(baseline_run):
+    path = report_path(baseline_run)
+    ws = load_workbook(path)["Executive Dashboard"]
+    last_col, last_row = 17, workbook.FOOTER_ROW + 1  # columns A..Q, rows 1..footer (1-based)
+    width = sum(round((ws.column_dimensions[workbook._col(i)].width or 8.43) * 7) for i in range(last_col))
+    height = sum((ws.row_dimensions[r].height or 15) * 96 / 72 for r in range(1, last_row + 1))
+    assert width <= 1200 and height <= 600, (width, height)  # one laptop screen at 100% zoom
+    assert ws.row_dimensions[workbook.KPI_ROW].height == 8.25  # spacer rows keep their height (1-based: row above)
+    assert ws.row_dimensions[workbook.KPI_ROW + 1].height == 3  # the cards' accent row
+    assert ws.max_row <= last_row and ws.max_column <= last_col
+    with zipfile.ZipFile(path) as archive:
+        sheet = archive.read("xl/worksheets/sheet1.xml").decode("utf-8")
+        drawing = archive.read("xl/drawings/drawing1.xml").decode("utf-8")
+        names = archive.read("xl/workbook.xml").decode("utf-8")
+    assert 'showGridLines="0"' in sheet and 'orientation="landscape"' in sheet and 'fitToPage="1"' in sheet
+    assert "'Executive Dashboard'!$A$1:$Q$32" in names  # print area
+    anchors = []
+    for anchor in re.findall(r"<xdr:twoCellAnchor.*?</xdr:twoCellAnchor>", drawing, re.S):
+        ends = [tuple(int(v) for v in re.findall(r">(\d+)<", part))
+                for part in re.findall(r"<xdr:(?:from|to)>(.*?)</xdr:(?:from|to)>", anchor, re.S)]
+        (col0, off0, row0, _), (col1, off1, row1, _) = ends
+        anchors.append(((col0, off0), (col1, off1), row0, row1))
+    assert len(anchors) == 3 and drawing.count('descr="') == 3  # each chart has alt text for screen readers
+    anchors.sort()
+    for (_, end, _, _), (start, _, _, _) in zip(anchors, anchors[1:]):
+        assert end <= start  # side by side, never overlapping
+    assert all(workbook.CHART_ROW <= row0 and row1 < workbook.FOOTER_ROW for _, _, row0, row1 in anchors)
+
+
+def test_dashboard_check_summary_covers_every_check(baseline_run):
+    grouped = sorted(name for _, names in workbook.CHECK_GROUPS for name in names)
+    assert grouped == sorted(workbook.CHECK_TEXT) == sorted(c["check"] for c in baseline_run.report["checks"])
 
 
 def test_workbook_bytes_are_deterministic(tmp_path, baseline_run):
@@ -181,7 +276,10 @@ def test_report_without_accepted_orders(tmp_path):
     assert book["Clean Orders"]["A4"].value == "No accepted orders in this run."
     assert book["Monthly Revenue"]["A4"].value == "No accepted Completed orders in this run."
     assert book["Correction Log"]["A4"].value.startswith("No correction suggestions")
-    assert below(book["Executive Dashboard"], "Accepted orders") == 0
+    dashboard = book["Executive Dashboard"]
+    assert below(dashboard, "Accepted Orders") == 0
+    assert cells_with(dashboard, "No accepted Completed orders in this run")
+    assert list(chart_references(report_path(result))) == ["Data Quality Issues"]
 
 
 def test_dashboard_shows_failed_checks(tmp_path, baseline_run):
@@ -194,9 +292,14 @@ def test_dashboard_shows_failed_checks(tmp_path, baseline_run):
     report["status"] = "FAIL"
     report["checks"][0]["status"] = "FAIL"
     (out / "quality_report.json").write_text(json.dumps(report), encoding="utf-8")
-    ws = load_workbook(workbook.build(out, 100))["Executive Dashboard"]
-    assert str(ws["B4"].value).startswith("✖ FAIL   1 of 6 reconciliation checks failed")
-    assert "✖ FAIL" in [c.value for row in ws.iter_rows() for c in row]
+    book = load_workbook(workbook.build(out, 100))
+    ws = book["Executive Dashboard"]
+    assert below(ws, "Reconciliation Status") == "✖ FAIL"
+    assert cells_with(ws, "5 of 6 checks passed · see Reconciliation Audit")
+    assert cells_with(ws, "✖  Every source row has one outcome") and len(cells_with(ws, "✔  ")) == 2
+    audit = book["Reconciliation Audit"]
+    assert audit["A4"].value.startswith("✖ FAIL   1 of 6 reconciliation checks failed")
+    assert "✖ FAIL" in [c.value for row in audit.iter_rows() for c in row]
 
 
 def test_cli_builds_the_workbook_unless_told_not_to(tmp_path, capsys):

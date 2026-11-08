@@ -124,20 +124,22 @@ The first nine files are **business outputs**: they depend only on the inputs, t
 
 | Sheet | Content |
 |---|---|
-| Executive Dashboard | Overall PASS/FAIL, headline counts and revenue, where every source row went, the six reconciliation checks, a plain-language summary, and charts of monthly revenue, revenue by channel and rejected rows by reason |
+| Executive Dashboard | One screen (about 1,180 x 580 pixels at 100% zoom, one landscape page when printed): revenue period; KPI cards for source records, accepted orders, revenue and reconciliation status; indicators for rejected rows, duplicates ignored and quarantined rows; the six checks summarized in three lines; charts of monthly revenue, revenue by sales channel and data-quality issues |
 | Monthly Revenue | Revenue and order counts by month and channel with totals, a chart by channel, and the revenue reconciliation check |
-| Data Quality Summary | Rejected rows by reason with an explanation of each code, duplicate statistics and the conflict policy, values standardized automatically, correction suggestions by status and rule |
+| Data Quality Summary | Rejected rows by reason with a short name and an explanation of each code, duplicate statistics and the conflict policy, values standardized automatically, correction suggestions by status and rule |
+| Reconciliation Audit | Overall PASS/FAIL, the row accounting (every outcome with its count and share), each reconciliation check with its detail, the input files with row counts and SHA-256, and the rules and reference data |
 | Rejected Records | `rejected_rows.csv`: source file and line, reasons and every value as received |
 | Duplicate Review | `duplicates_review.csv`; conflicting versions highlighted and the differing values marked |
 | Correction Log | `corrections_applied.csv` with the reviewer and note from the decision file; status colored |
 | Clean Orders | `clean_orders.csv`, dates as Excel dates and amounts as numbers |
-| Processing Audit | Input files with row counts and SHA-256, the rules and reference hashes, and the reconciliation checks |
 
 Behavior:
 
 - **Large data.** Detail sheets show at most `[workbook] max_detail_rows` rows (default 100,000). When a CSV has more, the sheet starts with a highlighted note: "Showing the first N of M ... The complete list is in <file>.csv". Rows are streamed to the file, so building the report needs little memory however large the run is.
 - **Same inputs, same file.** Sheet order, sort orders and document properties are fixed (the creation date is the latest order date in the clean data), so a full rebuild, an incremental run and any `--batch-size` produce a byte-identical workbook. Per-run file actions are not in the workbook; they are in `processing_audit.csv` and `run_log.jsonl`.
 - **Filters.** Detail sheets have a frozen header row with filters, banded rows and print settings (landscape, one page wide, header repeated). They are plain ranges, not Excel tables, because tables cannot be streamed.
+- **Charts.** The dashboard charts are native Excel charts that read their values from the Monthly Revenue and Data Quality Summary sheets, and each has alternative text for screen readers. A test resolves every chart range and compares it with the CSV and JSON outputs.
+- **Colors.** Navy for structure and revenue, teal for status and channels, neutral greys for text and surfaces. Amber marks data-quality exceptions; red appears only when a check fails.
 - **Values starting with `=`, `+`, `-` or `@`** keep the leading apostrophe added in the CSV files, so the sheet shows exactly what the CSV holds and Excel never treats them as formulas.
 - **Open in Excel.** If the previous report is open in Excel, the run stops with `OUT001` after the CSV and JSON files are written; the old report file stays unchanged. Close it and run again: unchanged inputs are not restaged, so the rerun is quick.
 

@@ -10,7 +10,7 @@ python -m order_quality run --input data/raw --input data/late-batch --correctio
 
 | File | Content |
 |---|---|
-| `order_quality_report.xlsx` | The Excel report: dashboard, monthly revenue, data quality, rejected records, duplicate review, correction log, clean orders, processing audit |
+| `order_quality_report.xlsx` | The Excel report: executive dashboard, monthly revenue, data quality summary, reconciliation audit, rejected records, duplicate review, correction log, clean orders |
 | `clean_orders.csv` | 5,157 accepted orders |
 | `rejected_rows.csv` | 99 rejected rows, as received, with reason codes |
 | `duplicates_review.csv` | Every row of an order ID that occurs more than once |
