@@ -1,0 +1,1168 @@
+{
+  "dataset": {
+    "name": "5k",
+    "scenario": "baseline",
+    "files": 3,
+    "input_rows": 5020,
+    "csv_mib": 0.3,
+    "sha256": "73121e5a25a3fc1e4596af5b4899007adb7782324f46cbb222c4334205dd534c",
+    "generation": {
+      "wall_s": 0.26,
+      "exit_code": 0,
+      "peak_rss_mib": 31.8,
+      "peak_private_mib": 22.3
+    }
+  },
+  "expected": {
+    "rows": {
+      "input": 5020,
+      "accepted": 4905,
+      "rejected": 90,
+      "duplicate_ignored": 15,
+      "quarantined_conflict": 10
+    },
+    "revenue_orders": 4170,
+    "revenue_usd": "333886.85"
+  },
+  "environment": {
+    "os": "Windows 11 Enterprise (10.0.26200)",
+    "python": "CPython 3.15.2",
+    "cpu": "13th Gen Intel(R) Core(TM) i7-1370P",
+    "logical_cpus": 20,
+    "memory_gib": 31.6,
+    "xlsxwriter": "3.3.1"
+  },
+  "code": {
+    "order_quality": "1.0.0",
+    "commit": "cc46d1f",
+    "uncommitted_changes": false
+  },
+  "measured_on": "2026-11-08",
+  "settings": {
+    "repeat": 5,
+    "default_batch_size": 5000,
+    "alt_batch_sizes": [
+      1000,
+      50000
+    ],
+    "extra_cli_args": [],
+    "workbook_built": true
+  },
+  "runs": [
+    {
+      "wall_s": 0.852,
+      "exit_code": 0,
+      "peak_rss_mib": 33.5,
+      "peak_private_mib": 24.6,
+      "pipeline_s": {
+        "stage": 0.154,
+        "resolve": 0.032,
+        "export": 0.047,
+        "checks": 0.031,
+        "workbook": 0.326,
+        "total": 0.647
+      },
+      "mode": "full_rebuild",
+      "file_actions": {
+        "NEW": 3
+      },
+      "outputs_mib": 2.6,
+      "scenario": "full",
+      "repeat": 1,
+      "batch_size": 5000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.693,
+      "exit_code": 0,
+      "peak_rss_mib": 31.8,
+      "peak_private_mib": 23.4,
+      "pipeline_s": {
+        "stage": 0.003,
+        "resolve": 0.026,
+        "export": 0.047,
+        "checks": 0.037,
+        "workbook": 0.337,
+        "total": 0.479
+      },
+      "mode": "incremental",
+      "file_actions": {
+        "UNCHANGED": 3
+      },
+      "scenario": "unchanged",
+      "repeat": 1,
+      "batch_size": 5000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 1.003,
+      "exit_code": 0,
+      "peak_rss_mib": 33.5,
+      "peak_private_mib": 24.9,
+      "pipeline_s": {
+        "stage": 0.163,
+        "resolve": 0.033,
+        "export": 0.051,
+        "checks": 0.069,
+        "workbook": 0.385,
+        "total": 0.778
+      },
+      "mode": "full_rebuild",
+      "file_actions": {
+        "NEW": 3
+      },
+      "scenario": "full_rebuild",
+      "repeat": 1,
+      "batch_size": 5000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.773,
+      "exit_code": 0,
+      "peak_rss_mib": 32.5,
+      "peak_private_mib": 24.0,
+      "pipeline_s": {
+        "stage": 0.059,
+        "resolve": 0.034,
+        "export": 0.05,
+        "checks": 0.042,
+        "workbook": 0.361,
+        "total": 0.554
+      },
+      "mode": "incremental",
+      "file_actions": {
+        "NEW": 1,
+        "UNCHANGED": 2
+      },
+      "scenario": "add_file",
+      "repeat": 1,
+      "batch_size": 5000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.901,
+      "exit_code": 0,
+      "peak_rss_mib": 32.9,
+      "peak_private_mib": 24.5,
+      "pipeline_s": {
+        "stage": 0.151,
+        "resolve": 0.032,
+        "export": 0.049,
+        "checks": 0.029,
+        "workbook": 0.37,
+        "total": 0.684
+      },
+      "mode": "full_rebuild",
+      "file_actions": {
+        "NEW": 3
+      },
+      "scenario": "batch_size",
+      "repeat": 1,
+      "batch_size": 1000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.953,
+      "exit_code": 0,
+      "peak_rss_mib": 33.3,
+      "peak_private_mib": 24.7,
+      "pipeline_s": {
+        "stage": 0.156,
+        "resolve": 0.035,
+        "export": 0.054,
+        "checks": 0.031,
+        "workbook": 0.359,
+        "total": 0.693
+      },
+      "mode": "full_rebuild",
+      "file_actions": {
+        "NEW": 3
+      },
+      "scenario": "batch_size",
+      "repeat": 1,
+      "batch_size": 50000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.957,
+      "exit_code": 0,
+      "peak_rss_mib": 33.4,
+      "peak_private_mib": 24.9,
+      "pipeline_s": {
+        "stage": 0.156,
+        "resolve": 0.039,
+        "export": 0.057,
+        "checks": 0.063,
+        "workbook": 0.36,
+        "total": 0.728
+      },
+      "mode": "full_rebuild",
+      "file_actions": {
+        "NEW": 3
+      },
+      "outputs_mib": 2.6,
+      "scenario": "full",
+      "repeat": 2,
+      "batch_size": 5000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.735,
+      "exit_code": 0,
+      "peak_rss_mib": 31.8,
+      "peak_private_mib": 23.3,
+      "pipeline_s": {
+        "stage": 0.002,
+        "resolve": 0.027,
+        "export": 0.053,
+        "checks": 0.068,
+        "workbook": 0.352,
+        "total": 0.51
+      },
+      "mode": "incremental",
+      "file_actions": {
+        "UNCHANGED": 3
+      },
+      "scenario": "unchanged",
+      "repeat": 2,
+      "batch_size": 5000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.931,
+      "exit_code": 0,
+      "peak_rss_mib": 32.9,
+      "peak_private_mib": 24.5,
+      "pipeline_s": {
+        "stage": 0.153,
+        "resolve": 0.032,
+        "export": 0.051,
+        "checks": 0.031,
+        "workbook": 0.364,
+        "total": 0.696
+      },
+      "mode": "full_rebuild",
+      "file_actions": {
+        "NEW": 3
+      },
+      "scenario": "full_rebuild",
+      "repeat": 2,
+      "batch_size": 5000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.796,
+      "exit_code": 0,
+      "peak_rss_mib": 33.1,
+      "peak_private_mib": 24.4,
+      "pipeline_s": {
+        "stage": 0.076,
+        "resolve": 0.039,
+        "export": 0.052,
+        "checks": 0.032,
+        "workbook": 0.363,
+        "total": 0.57
+      },
+      "mode": "incremental",
+      "file_actions": {
+        "NEW": 1,
+        "UNCHANGED": 2
+      },
+      "scenario": "add_file",
+      "repeat": 2,
+      "batch_size": 5000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.955,
+      "exit_code": 0,
+      "peak_rss_mib": 32.9,
+      "peak_private_mib": 24.4,
+      "pipeline_s": {
+        "stage": 0.162,
+        "resolve": 0.034,
+        "export": 0.052,
+        "checks": 0.03,
+        "workbook": 0.379,
+        "total": 0.708
+      },
+      "mode": "full_rebuild",
+      "file_actions": {
+        "NEW": 3
+      },
+      "scenario": "batch_size",
+      "repeat": 2,
+      "batch_size": 1000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.943,
+      "exit_code": 0,
+      "peak_rss_mib": 32.9,
+      "peak_private_mib": 24.4,
+      "pipeline_s": {
+        "stage": 0.161,
+        "resolve": 0.033,
+        "export": 0.049,
+        "checks": 0.066,
+        "workbook": 0.341,
+        "total": 0.702
+      },
+      "mode": "full_rebuild",
+      "file_actions": {
+        "NEW": 3
+      },
+      "scenario": "batch_size",
+      "repeat": 2,
+      "batch_size": 50000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.96,
+      "exit_code": 0,
+      "peak_rss_mib": 33.3,
+      "peak_private_mib": 24.6,
+      "pipeline_s": {
+        "stage": 0.159,
+        "resolve": 0.033,
+        "export": 0.052,
+        "checks": 0.069,
+        "workbook": 0.356,
+        "total": 0.727
+      },
+      "mode": "full_rebuild",
+      "file_actions": {
+        "NEW": 3
+      },
+      "outputs_mib": 2.6,
+      "scenario": "full",
+      "repeat": 3,
+      "batch_size": 5000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.759,
+      "exit_code": 0,
+      "peak_rss_mib": 31.6,
+      "peak_private_mib": 23.1,
+      "pipeline_s": {
+        "stage": 0.002,
+        "resolve": 0.029,
+        "export": 0.055,
+        "checks": 0.041,
+        "workbook": 0.363,
+        "total": 0.499
+      },
+      "mode": "incremental",
+      "file_actions": {
+        "UNCHANGED": 3
+      },
+      "scenario": "unchanged",
+      "repeat": 3,
+      "batch_size": 5000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.891,
+      "exit_code": 0,
+      "peak_rss_mib": 33.3,
+      "peak_private_mib": 24.7,
+      "pipeline_s": {
+        "stage": 0.151,
+        "resolve": 0.033,
+        "export": 0.05,
+        "checks": 0.028,
+        "workbook": 0.364,
+        "total": 0.68
+      },
+      "mode": "full_rebuild",
+      "file_actions": {
+        "NEW": 3
+      },
+      "scenario": "full_rebuild",
+      "repeat": 3,
+      "batch_size": 5000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.752,
+      "exit_code": 0,
+      "peak_rss_mib": 33.1,
+      "peak_private_mib": 24.2,
+      "pipeline_s": {
+        "stage": 0.06,
+        "resolve": 0.034,
+        "export": 0.052,
+        "checks": 0.044,
+        "workbook": 0.315,
+        "total": 0.513
+      },
+      "mode": "incremental",
+      "file_actions": {
+        "NEW": 1,
+        "UNCHANGED": 2
+      },
+      "scenario": "add_file",
+      "repeat": 3,
+      "batch_size": 5000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.922,
+      "exit_code": 0,
+      "peak_rss_mib": 33.0,
+      "peak_private_mib": 24.3,
+      "pipeline_s": {
+        "stage": 0.152,
+        "resolve": 0.033,
+        "export": 0.049,
+        "checks": 0.066,
+        "workbook": 0.344,
+        "total": 0.699
+      },
+      "mode": "full_rebuild",
+      "file_actions": {
+        "NEW": 3
+      },
+      "scenario": "batch_size",
+      "repeat": 3,
+      "batch_size": 1000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.955,
+      "exit_code": 0,
+      "peak_rss_mib": 33.4,
+      "peak_private_mib": 24.7,
+      "pipeline_s": {
+        "stage": 0.159,
+        "resolve": 0.033,
+        "export": 0.051,
+        "checks": 0.061,
+        "workbook": 0.364,
+        "total": 0.729
+      },
+      "mode": "full_rebuild",
+      "file_actions": {
+        "NEW": 3
+      },
+      "scenario": "batch_size",
+      "repeat": 3,
+      "batch_size": 50000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.967,
+      "exit_code": 0,
+      "peak_rss_mib": 33.0,
+      "peak_private_mib": 24.5,
+      "pipeline_s": {
+        "stage": 0.165,
+        "resolve": 0.036,
+        "export": 0.062,
+        "checks": 0.038,
+        "workbook": 0.369,
+        "total": 0.741
+      },
+      "mode": "full_rebuild",
+      "file_actions": {
+        "NEW": 3
+      },
+      "outputs_mib": 2.6,
+      "scenario": "full",
+      "repeat": 4,
+      "batch_size": 5000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.719,
+      "exit_code": 0,
+      "peak_rss_mib": 31.6,
+      "peak_private_mib": 23.2,
+      "pipeline_s": {
+        "stage": 0.002,
+        "resolve": 0.027,
+        "export": 0.053,
+        "checks": 0.028,
+        "workbook": 0.346,
+        "total": 0.474
+      },
+      "mode": "incremental",
+      "file_actions": {
+        "UNCHANGED": 3
+      },
+      "scenario": "unchanged",
+      "repeat": 4,
+      "batch_size": 5000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.927,
+      "exit_code": 0,
+      "peak_rss_mib": 32.8,
+      "peak_private_mib": 24.3,
+      "pipeline_s": {
+        "stage": 0.164,
+        "resolve": 0.033,
+        "export": 0.051,
+        "checks": 0.031,
+        "workbook": 0.348,
+        "total": 0.697
+      },
+      "mode": "full_rebuild",
+      "file_actions": {
+        "NEW": 3
+      },
+      "scenario": "full_rebuild",
+      "repeat": 4,
+      "batch_size": 5000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.808,
+      "exit_code": 0,
+      "peak_rss_mib": 32.9,
+      "peak_private_mib": 24.5,
+      "pipeline_s": {
+        "stage": 0.067,
+        "resolve": 0.037,
+        "export": 0.054,
+        "checks": 0.063,
+        "workbook": 0.338,
+        "total": 0.567
+      },
+      "mode": "incremental",
+      "file_actions": {
+        "NEW": 1,
+        "UNCHANGED": 2
+      },
+      "scenario": "add_file",
+      "repeat": 4,
+      "batch_size": 5000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 1.133,
+      "exit_code": 0,
+      "peak_rss_mib": 33.0,
+      "peak_private_mib": 24.4,
+      "pipeline_s": {
+        "stage": 0.236,
+        "resolve": 0.033,
+        "export": 0.072,
+        "checks": 0.059,
+        "workbook": 0.357,
+        "total": 0.837
+      },
+      "mode": "full_rebuild",
+      "file_actions": {
+        "NEW": 3
+      },
+      "scenario": "batch_size",
+      "repeat": 4,
+      "batch_size": 1000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 1.117,
+      "exit_code": 0,
+      "peak_rss_mib": 33.4,
+      "peak_private_mib": 24.6,
+      "pipeline_s": {
+        "stage": 0.175,
+        "resolve": 0.042,
+        "export": 0.05,
+        "checks": 0.06,
+        "workbook": 0.306,
+        "total": 0.88
+      },
+      "mode": "full_rebuild",
+      "file_actions": {
+        "NEW": 3
+      },
+      "scenario": "batch_size",
+      "repeat": 4,
+      "batch_size": 50000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 1.088,
+      "exit_code": 0,
+      "peak_rss_mib": 33.4,
+      "peak_private_mib": 24.5,
+      "pipeline_s": {
+        "stage": 0.188,
+        "resolve": 0.038,
+        "export": 0.054,
+        "checks": 0.032,
+        "workbook": 0.365,
+        "total": 0.805
+      },
+      "mode": "full_rebuild",
+      "file_actions": {
+        "NEW": 3
+      },
+      "outputs_mib": 2.6,
+      "scenario": "full",
+      "repeat": 5,
+      "batch_size": 5000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.726,
+      "exit_code": 0,
+      "peak_rss_mib": 31.5,
+      "peak_private_mib": 23.0,
+      "pipeline_s": {
+        "stage": 0.003,
+        "resolve": 0.029,
+        "export": 0.051,
+        "checks": 0.043,
+        "workbook": 0.366,
+        "total": 0.511
+      },
+      "mode": "incremental",
+      "file_actions": {
+        "UNCHANGED": 3
+      },
+      "scenario": "unchanged",
+      "repeat": 5,
+      "batch_size": 5000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.964,
+      "exit_code": 0,
+      "peak_rss_mib": 32.9,
+      "peak_private_mib": 24.5,
+      "pipeline_s": {
+        "stage": 0.174,
+        "resolve": 0.036,
+        "export": 0.051,
+        "checks": 0.03,
+        "workbook": 0.376,
+        "total": 0.728
+      },
+      "mode": "full_rebuild",
+      "file_actions": {
+        "NEW": 3
+      },
+      "scenario": "full_rebuild",
+      "repeat": 5,
+      "batch_size": 5000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 0.826,
+      "exit_code": 0,
+      "peak_rss_mib": 32.7,
+      "peak_private_mib": 24.1,
+      "pipeline_s": {
+        "stage": 0.062,
+        "resolve": 0.037,
+        "export": 0.055,
+        "checks": 0.064,
+        "workbook": 0.366,
+        "total": 0.592
+      },
+      "mode": "incremental",
+      "file_actions": {
+        "NEW": 1,
+        "UNCHANGED": 2
+      },
+      "scenario": "add_file",
+      "repeat": 5,
+      "batch_size": 5000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 1.122,
+      "exit_code": 0,
+      "peak_rss_mib": 33.4,
+      "peak_private_mib": 24.8,
+      "pipeline_s": {
+        "stage": 0.231,
+        "resolve": 0.052,
+        "export": 0.054,
+        "checks": 0.03,
+        "workbook": 0.377,
+        "total": 0.868
+      },
+      "mode": "full_rebuild",
+      "file_actions": {
+        "NEW": 3
+      },
+      "scenario": "batch_size",
+      "repeat": 5,
+      "batch_size": 1000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    },
+    {
+      "wall_s": 1.045,
+      "exit_code": 0,
+      "peak_rss_mib": 32.9,
+      "peak_private_mib": 24.4,
+      "pipeline_s": {
+        "stage": 0.18,
+        "resolve": 0.033,
+        "export": 0.051,
+        "checks": 0.031,
+        "workbook": 0.403,
+        "total": 0.789
+      },
+      "mode": "full_rebuild",
+      "file_actions": {
+        "NEW": 3
+      },
+      "scenario": "batch_size",
+      "repeat": 5,
+      "batch_size": 50000,
+      "matches_expected": true,
+      "expected_detail": "matches",
+      "outputs_identical": true
+    }
+  ],
+  "summary": [
+    {
+      "scenario": "full",
+      "batch_size": 5000,
+      "runs": 5,
+      "wall_s": {
+        "median": 0.96,
+        "min": 0.852,
+        "max": 1.088
+      },
+      "pipeline_s": {
+        "stage": {
+          "median": 0.159,
+          "min": 0.154,
+          "max": 0.188
+        },
+        "resolve": {
+          "median": 0.036,
+          "min": 0.032,
+          "max": 0.039
+        },
+        "export": {
+          "median": 0.054,
+          "min": 0.047,
+          "max": 0.062
+        },
+        "checks": {
+          "median": 0.038,
+          "min": 0.031,
+          "max": 0.069
+        },
+        "total": {
+          "median": 0.728,
+          "min": 0.647,
+          "max": 0.805
+        }
+      },
+      "peak_rss_mib": {
+        "median": 33.4,
+        "min": 33.0,
+        "max": 33.5
+      },
+      "all_exit_zero": true,
+      "all_match_expected": true,
+      "all_outputs_identical": true,
+      "file_actions": {
+        "NEW": 3
+      }
+    },
+    {
+      "scenario": "unchanged",
+      "batch_size": 5000,
+      "runs": 5,
+      "wall_s": {
+        "median": 0.726,
+        "min": 0.693,
+        "max": 0.759
+      },
+      "pipeline_s": {
+        "stage": {
+          "median": 0.002,
+          "min": 0.002,
+          "max": 0.003
+        },
+        "resolve": {
+          "median": 0.027,
+          "min": 0.026,
+          "max": 0.029
+        },
+        "export": {
+          "median": 0.053,
+          "min": 0.047,
+          "max": 0.055
+        },
+        "checks": {
+          "median": 0.041,
+          "min": 0.028,
+          "max": 0.068
+        },
+        "total": {
+          "median": 0.499,
+          "min": 0.474,
+          "max": 0.511
+        }
+      },
+      "peak_rss_mib": {
+        "median": 31.6,
+        "min": 31.5,
+        "max": 31.8
+      },
+      "all_exit_zero": true,
+      "all_match_expected": true,
+      "all_outputs_identical": true,
+      "file_actions": {
+        "UNCHANGED": 3
+      }
+    },
+    {
+      "scenario": "full_rebuild",
+      "batch_size": 5000,
+      "runs": 5,
+      "wall_s": {
+        "median": 0.931,
+        "min": 0.891,
+        "max": 1.003
+      },
+      "pipeline_s": {
+        "stage": {
+          "median": 0.163,
+          "min": 0.151,
+          "max": 0.174
+        },
+        "resolve": {
+          "median": 0.033,
+          "min": 0.032,
+          "max": 0.036
+        },
+        "export": {
+          "median": 0.051,
+          "min": 0.05,
+          "max": 0.051
+        },
+        "checks": {
+          "median": 0.031,
+          "min": 0.028,
+          "max": 0.069
+        },
+        "total": {
+          "median": 0.697,
+          "min": 0.68,
+          "max": 0.778
+        }
+      },
+      "peak_rss_mib": {
+        "median": 32.9,
+        "min": 32.8,
+        "max": 33.5
+      },
+      "all_exit_zero": true,
+      "all_match_expected": true,
+      "all_outputs_identical": true,
+      "file_actions": {
+        "NEW": 3
+      }
+    },
+    {
+      "scenario": "add_file",
+      "batch_size": 5000,
+      "runs": 5,
+      "wall_s": {
+        "median": 0.796,
+        "min": 0.752,
+        "max": 0.826
+      },
+      "pipeline_s": {
+        "stage": {
+          "median": 0.062,
+          "min": 0.059,
+          "max": 0.076
+        },
+        "resolve": {
+          "median": 0.037,
+          "min": 0.034,
+          "max": 0.039
+        },
+        "export": {
+          "median": 0.052,
+          "min": 0.05,
+          "max": 0.055
+        },
+        "checks": {
+          "median": 0.044,
+          "min": 0.032,
+          "max": 0.064
+        },
+        "total": {
+          "median": 0.567,
+          "min": 0.513,
+          "max": 0.592
+        }
+      },
+      "peak_rss_mib": {
+        "median": 32.9,
+        "min": 32.5,
+        "max": 33.1
+      },
+      "all_exit_zero": true,
+      "all_match_expected": true,
+      "all_outputs_identical": true,
+      "file_actions": {
+        "NEW": 1,
+        "UNCHANGED": 2
+      }
+    },
+    {
+      "scenario": "batch_size",
+      "batch_size": 1000,
+      "runs": 5,
+      "wall_s": {
+        "median": 0.955,
+        "min": 0.901,
+        "max": 1.133
+      },
+      "pipeline_s": {
+        "stage": {
+          "median": 0.162,
+          "min": 0.151,
+          "max": 0.236
+        },
+        "resolve": {
+          "median": 0.033,
+          "min": 0.032,
+          "max": 0.052
+        },
+        "export": {
+          "median": 0.052,
+          "min": 0.049,
+          "max": 0.072
+        },
+        "checks": {
+          "median": 0.03,
+          "min": 0.029,
+          "max": 0.066
+        },
+        "total": {
+          "median": 0.708,
+          "min": 0.684,
+          "max": 0.868
+        }
+      },
+      "peak_rss_mib": {
+        "median": 33.0,
+        "min": 32.9,
+        "max": 33.4
+      },
+      "all_exit_zero": true,
+      "all_match_expected": true,
+      "all_outputs_identical": true,
+      "file_actions": {
+        "NEW": 3
+      }
+    },
+    {
+      "scenario": "batch_size",
+      "batch_size": 50000,
+      "runs": 5,
+      "wall_s": {
+        "median": 0.955,
+        "min": 0.943,
+        "max": 1.117
+      },
+      "pipeline_s": {
+        "stage": {
+          "median": 0.161,
+          "min": 0.156,
+          "max": 0.18
+        },
+        "resolve": {
+          "median": 0.033,
+          "min": 0.033,
+          "max": 0.042
+        },
+        "export": {
+          "median": 0.051,
+          "min": 0.049,
+          "max": 0.054
+        },
+        "checks": {
+          "median": 0.06,
+          "min": 0.031,
+          "max": 0.066
+        },
+        "total": {
+          "median": 0.729,
+          "min": 0.693,
+          "max": 0.88
+        }
+      },
+      "peak_rss_mib": {
+        "median": 33.3,
+        "min": 32.9,
+        "max": 33.4
+      },
+      "all_exit_zero": true,
+      "all_match_expected": true,
+      "all_outputs_identical": true,
+      "file_actions": {
+        "NEW": 3
+      }
+    }
+  ],
+  "baseline_script": {
+    "runs": [
+      {
+        "wall_s": 0.379,
+        "exit_code": 0,
+        "peak_rss_mib": 25.4,
+        "peak_private_mib": 18.2,
+        "repeat": 1,
+        "reported": {
+          "input_rows": 5020,
+          "accepted_rows": 4905,
+          "rejected_rows": 90,
+          "duplicate_occurrences": 20,
+          "conflicting_order_ids": 5,
+          "completed_order_count": 4170,
+          "completed_revenue_usd": "333886.85"
+        }
+      },
+      {
+        "wall_s": 0.204,
+        "exit_code": 0,
+        "peak_rss_mib": 25.8,
+        "peak_private_mib": 18.6,
+        "repeat": 2,
+        "reported": {
+          "input_rows": 5020,
+          "accepted_rows": 4905,
+          "rejected_rows": 90,
+          "duplicate_occurrences": 20,
+          "conflicting_order_ids": 5,
+          "completed_order_count": 4170,
+          "completed_revenue_usd": "333886.85"
+        }
+      },
+      {
+        "wall_s": 0.188,
+        "exit_code": 0,
+        "peak_rss_mib": 25.7,
+        "peak_private_mib": 18.8,
+        "repeat": 3,
+        "reported": {
+          "input_rows": 5020,
+          "accepted_rows": 4905,
+          "rejected_rows": 90,
+          "duplicate_occurrences": 20,
+          "conflicting_order_ids": 5,
+          "completed_order_count": 4170,
+          "completed_revenue_usd": "333886.85"
+        }
+      },
+      {
+        "wall_s": 0.185,
+        "exit_code": 0,
+        "peak_rss_mib": 25.5,
+        "peak_private_mib": 18.6,
+        "repeat": 4,
+        "reported": {
+          "input_rows": 5020,
+          "accepted_rows": 4905,
+          "rejected_rows": 90,
+          "duplicate_occurrences": 20,
+          "conflicting_order_ids": 5,
+          "completed_order_count": 4170,
+          "completed_revenue_usd": "333886.85"
+        }
+      },
+      {
+        "wall_s": 0.192,
+        "exit_code": 0,
+        "peak_rss_mib": 25.5,
+        "peak_private_mib": 18.4,
+        "repeat": 5,
+        "reported": {
+          "input_rows": 5020,
+          "accepted_rows": 4905,
+          "rejected_rows": 90,
+          "duplicate_occurrences": 20,
+          "conflicting_order_ids": 5,
+          "completed_order_count": 4170,
+          "completed_revenue_usd": "333886.85"
+        }
+      }
+    ],
+    "wall_s": {
+      "median": 0.192,
+      "min": 0.185,
+      "max": 0.379
+    },
+    "peak_rss_mib": {
+      "median": 25.5,
+      "min": 25.4,
+      "max": 25.8
+    }
+  }
+}
