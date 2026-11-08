@@ -30,7 +30,7 @@ A failure shows as `FAIL` in the results table and makes the harness exit with s
 ## Method
 
 - **Fresh process per measurement.** Every run starts `benchmarks/_child.py`, which calls the same command-line entry point as `python -m order_quality`.
-- **Wall time** is measured by the harness around the whole process, including interpreter start-up. **Pipeline time** is the pipeline's own total from `run_log.jsonl`, with its phases: stage (read, normalize, validate, insert), resolve (duplicates), export (CSV files), checks (reconciliation and report).
+- **Wall time** is measured by the harness around the whole process, including interpreter start-up. **Pipeline time** is the pipeline's own total from `run_log.jsonl`, with its phases: stage (read, normalize, validate, insert), resolve (duplicates), export (CSV files), checks (reconciliation and report), workbook (Excel report).
 - **Peak memory** is the peak working set on Windows (`PeakWorkingSetSize` from `GetProcessMemoryInfo`) and the peak resident set size elsewhere (`getrusage` `ru_maxrss`). The process reads it about itself just before it exits. Reading it from the parent through the process handle would be wrong on Windows: a virtual environment's `python.exe` is a launcher that starts the real interpreter as a second process, so the handle belongs to the launcher.
 - **Self-test.** `--self-test` checks the memory method: a child that writes 256 MiB must report about 256 MiB more than an idle child. It also prints the launcher's own reading to show the difference.
 - **Statistics.** Each scenario is repeated (5 times for `5k` and `100k`, 3 times for `1m` by default) and reported as median and min–max.

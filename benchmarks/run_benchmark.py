@@ -330,10 +330,8 @@ def summarize(runs: list[dict]) -> list[dict]:
     summary = []
     for (scenario, batch), group in groups.items():
         phases = {}
-        for phase in ("stage", "resolve", "export", "checks", "total"):
-            values = [r["pipeline_s"][phase] for r in group if phase in r.get("pipeline_s", {})]
-            if values:
-                phases[phase] = stats(values)
+        for phase in dict.fromkeys(p for r in group for p in r.get("pipeline_s", {})):  # every phase the runs logged
+            phases[phase] = stats([r["pipeline_s"][phase] for r in group if phase in r.get("pipeline_s", {})])
         summary.append({
             "scenario": scenario, "batch_size": batch, "runs": len(group),
             "wall_s": stats([r["wall_s"] for r in group]),
