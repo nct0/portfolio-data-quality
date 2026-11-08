@@ -4,4 +4,4 @@ Each case study follows the same sections: problem, reproduction steps, baseline
 
 | # | Case study | Status |
 |---|---|---|
-| 1 | Three messy order exports and a late batch to a reconciled Excel report | In development |
+| 1 | [Three messy order exports and a late batch to a reconciled Excel report](case-01-messy-exports-to-reconciled-report.md) | Complete |
