@@ -1,0 +1,30 @@
+{
+  "input_rows": 5020,
+  "accepted_rows": 4905,
+  "rejected_rows": 90,
+  "duplicate_occurrences": 20,
+  "conflicting_order_ids": 5,
+  "quarantined_valid_rows": 5,
+  "unique_source_row_accounting": true,
+  "completed_order_count": 4170,
+  "completed_revenue_usd": "333886.85",
+  "issues": {
+    "AMOUNT_MISMATCH": 10,
+    "CONFLICTING_DUPLICATE": 5,
+    "EXACT_DUPLICATE": 15,
+    "INVALID_AMOUNT": 10,
+    "INVALID_DATE": 10,
+    "INVALID_QUANTITY": 10,
+    "MISSING_CUSTOMER_ID": 10,
+    "MISSING_ORDER_ID": 10,
+    "UNKNOWN_CHANNEL": 10,
+    "UNKNOWN_SKU": 10,
+    "UNKNOWN_STATUS": 10
+  },
+  "notes": [
+    "Only Completed orders count toward revenue.",
+    "Exact duplicates are ignored; all versions of conflicting order IDs are quarantined from clean data.",
+    "No currency conversion; all amounts are USD.",
+    "Revenue is gross amount for Completed orders, before taxes or fees."
+  ]
+}
