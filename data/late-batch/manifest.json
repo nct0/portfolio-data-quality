@@ -1,0 +1,43 @@
+{
+  "scenario": "late-batch",
+  "seed": 20261109,
+  "file": "orders_export_4.csv",
+  "rows": 273,
+  "composition": {
+    "duplicate_in_batch": 2,
+    "new": 240,
+    "resent_conflict": 2,
+    "resent_exact": 5,
+    "suggestion": 17,
+    "third_version": 1,
+    "unrepairable": 6
+  },
+  "suggestions": {
+    "channel_typo": 3,
+    "date_format": 4,
+    "sku_format": 6,
+    "status_typo": 4
+  },
+  "demo_decisions": {
+    "approve": 14,
+    "reject": 1,
+    "pending": 2
+  },
+  "effect_on_baseline": {
+    "without_decisions": {
+      "input": 273,
+      "accepted": 238,
+      "rejected": 23,
+      "duplicate_ignored": 7,
+      "quarantined_conflict": 5,
+      "revenue_orders": 206,
+      "revenue_usd": "17803.05"
+    },
+    "with_demo_decisions": {
+      "accepted": 252,
+      "rejected": 9,
+      "revenue_orders": 218,
+      "revenue_usd": "18430.35"
+    }
+  }
+}
