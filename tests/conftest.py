@@ -46,7 +46,9 @@ def read_csv(path: Path) -> list[dict[str, str]]:
 
 
 def run_pipeline(out: Path, inputs: list[Path], **options) -> RunResult:
+    """Run the pipeline. The Excel report is skipped unless asked for, to keep the suite fast; test_workbook covers it."""
     options.setdefault("reference", REFERENCE)
+    options.setdefault("workbook", False)
     return run(RunOptions(inputs=list(inputs), out=out, **options))
 
 

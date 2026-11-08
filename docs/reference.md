@@ -5,6 +5,7 @@ Commands, rules file, output files, codes and processing behavior of the `order_
 - [Commands](#commands)
 - [Rules file](#rules-file-configrulestoml)
 - [Output files](#output-files)
+- [Excel report](#excel-report)
 - [Row outcomes and row accounting](#row-outcomes-and-row-accounting)
 - [Codes](#codes)
 - [Incremental processing](#incremental-processing)
@@ -31,6 +32,7 @@ python -m order_quality run --input data/raw --reference data/reference --config
 | `--state FILE` | `<out>/state.sqlite` | Processing state for incremental runs. |
 | `--full-rebuild` | off | Delete the processing state first and stage every file again. |
 | `--batch-size N` | 5000 | Rows per database insert batch. Affects memory and speed only, never results. |
+| `--no-workbook` | off | Skip the Excel report. The CSV and JSON outputs are always written. |
 | `--log-format text\|json` | `text` | Format of the log on stderr. `json` writes one JSON object per line. |
 | `--quiet` | off | Log warnings and errors only. |
 
@@ -106,6 +108,7 @@ All files are written to a temporary file in the output folder and then moved in
 | `row_outcomes.csv` | every source row, by file and line | `source_file`, `source_line`, `order_id`, `outcome`, `issue_codes`, `corrected_fields` |
 | `correction_review.csv` | suggestion | `correction_id`, `source_file`, `source_line`, `order_id`, `field`, `rule`, `original_value`, `suggested_value`, `decision`, `reviewer`, `note` |
 | `corrections_applied.csv` | suggestion, then each stale decision | `correction_id`, …, `decision`, `status` (`APPLIED`, `REJECTED`, `PENDING`, `STALE`), `final_value`, `row_outcome` |
+| `order_quality_report.xlsx` | — | The Excel report, built from the files above. See [Excel report](#excel-report). |
 | `quality_report.json` | run | Row counts, revenue, issue counts, duplicate statistics, normalization counts, correction statistics, reconciliation checks, input inventory (file name, SHA-256, bytes, rows, status), rules and reference hashes. No timestamps and no paths. |
 | `processing_audit.csv` | input file in this run | `run_id`, `source_file`, `action`, `reason`, `sha256`, `bytes`, `data_rows` |
 | `run_log.jsonl` | run (appended) | Run ID, mode, exit code, seconds per phase, file actions, row counts, revenue |
@@ -113,7 +116,32 @@ All files are written to a temporary file in the output folder and then moved in
 
 `source_line` is the physical line where the record starts in the file, counting the header as line 1, so it stays correct when a quoted field spans several lines.
 
-The first eight files are **business outputs**: they depend only on the inputs, the rules, the reference data and the decisions. The last three describe the run itself.
+The first nine files are **business outputs**: they depend only on the inputs, the rules, the reference data and the decisions. The last three describe the run itself.
+
+## Excel report
+
+`order_quality_report.xlsx` is built at the end of every run (unless `--no-workbook` is given) from the CSV files and `quality_report.json` in the output folder, so it never shows a number those files do not contain. It contains no cell formulas: totals are calculated by the pipeline and written as values, and text from the input is always stored as text.
+
+| Sheet | Content |
+|---|---|
+| Executive Dashboard | Overall PASS/FAIL, headline counts and revenue, where every source row went, the six reconciliation checks, a plain-language summary, and charts of monthly revenue, revenue by channel and rejected rows by reason |
+| Monthly Revenue | Revenue and order counts by month and channel with totals, a chart by channel, and the revenue reconciliation check |
+| Data Quality Summary | Rejected rows by reason with an explanation of each code, duplicate statistics and the conflict policy, values standardized automatically, correction suggestions by status and rule |
+| Rejected Records | `rejected_rows.csv`: source file and line, reasons and every value as received |
+| Duplicate Review | `duplicates_review.csv`; conflicting versions highlighted and the differing values marked |
+| Correction Log | `corrections_applied.csv` with the reviewer and note from the decision file; status colored |
+| Clean Orders | `clean_orders.csv`, dates as Excel dates and amounts as numbers |
+| Processing Audit | Input files with row counts and SHA-256, the rules and reference hashes, and the reconciliation checks |
+
+Behavior:
+
+- **Large data.** Detail sheets show at most `[workbook] max_detail_rows` rows (default 100,000). When a CSV has more, the sheet starts with a highlighted note: "Showing the first N of M ... The complete list is in <file>.csv". Rows are streamed to the file, so building the report needs little memory however large the run is.
+- **Same inputs, same file.** Sheet order, sort orders and document properties are fixed (the creation date is the latest order date in the clean data), so a full rebuild, an incremental run and any `--batch-size` produce a byte-identical workbook. Per-run file actions are not in the workbook; they are in `processing_audit.csv` and `run_log.jsonl`.
+- **Filters.** Detail sheets have a frozen header row with filters, banded rows and print settings (landscape, one page wide, header repeated). They are plain ranges, not Excel tables, because tables cannot be streamed.
+- **Values starting with `=`, `+`, `-` or `@`** keep the leading apostrophe added in the CSV files, so the sheet shows exactly what the CSV holds and Excel never treats them as formulas.
+- **Open in Excel.** If the previous report is open in Excel, the run stops with `OUT001` after the CSV and JSON files are written; the old report file stays unchanged. Close it and run again: unchanged inputs are not restaged, so the rerun is quick.
+
+`scripts/capture-screenshots.ps1` regenerates the images in `assets/` from real runs (Windows with Microsoft Excel).
 
 ## Row outcomes and row accounting
 

@@ -31,6 +31,8 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--full-rebuild", action="store_true", help="discard the processing state and restage every file")
     p.add_argument("--batch-size", type=int, default=DEFAULT_BATCH_SIZE,
                    help=f"rows per database insert batch (default: {DEFAULT_BATCH_SIZE}); never changes results")
+    p.add_argument("--no-workbook", action="store_true", help="skip the Excel report (the CSV and JSON outputs are "
+                   "always written)")
     p.add_argument("--log-format", choices=("text", "json"), default="text", help="log format on stderr")
     p.add_argument("--quiet", action="store_true", help="log warnings and errors only")
 
@@ -56,7 +58,7 @@ def main(argv: list[str] | None = None) -> int:
         log.configure(args.log_format, 30 if args.quiet else 20)
         result = run(RunOptions(inputs=args.input, reference=args.reference, out=args.out, config=args.config,
                                 corrections=args.corrections, state=args.state, full_rebuild=args.full_rebuild,
-                                batch_size=args.batch_size))
+                                batch_size=args.batch_size, workbook=not args.no_workbook))
     except OrderQualityError as exc:
         print(f"error {exc.code}: {exc.message}", file=sys.stderr)
         return exc.exit_code

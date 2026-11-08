@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Any
 
 from order_quality import corrections as cr
-from order_quality import outputs
+from order_quality import outputs, workbook
 from order_quality.config import COLUMNS, Rules, load_rules
 from order_quality.errors import EXIT_CHECK_FAILED, EXIT_OK, InputError
 from order_quality.export import append_line, write_json
@@ -45,6 +45,7 @@ class RunOptions:
     state: Path | None = None
     full_rebuild: bool = False
     batch_size: int = DEFAULT_BATCH_SIZE
+    workbook: bool = True
 
 
 @dataclass
@@ -120,7 +121,12 @@ def run(options: RunOptions) -> RunResult:
         write_json(out / outputs.QUALITY_REPORT, report)
         outputs.write_processing_audit(out, run_id, actions)
         seconds["checks"] = time.perf_counter() - t
-        # All business outputs are complete at this point; quality_report.json is the last one written.
+        # All CSV and JSON business outputs are complete at this point; the workbook is built from them.
+
+        if options.workbook:
+            t = time.perf_counter()
+            workbook.build(out, rules.workbook_max_detail_rows)
+            seconds["workbook"] = time.perf_counter() - t
 
         exit_code = EXIT_OK if report["status"] == "PASS" else EXIT_CHECK_FAILED
         for failed in (c for c in checks if c["status"] != "PASS"):
