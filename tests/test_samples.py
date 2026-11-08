@@ -40,4 +40,8 @@ def test_sample_workbook_is_current(demo):
 
 
 def test_samples_hold_only_regenerated_files():
-    assert sorted(p.name for p in SAMPLES.iterdir()) == sorted([*BUSINESS_OUTPUTS, WORKBOOK, "README.md"])
+    """No stale output files; other files (README.md, ignored OS or Excel lock files) do not count."""
+    outputs = sorted(p.name for p in SAMPLES.iterdir()
+                     if p.suffix in (".csv", ".json", ".xlsx") and not p.name.startswith("~$"))  # ~$: Excel lock file
+    assert outputs == sorted([*BUSINESS_OUTPUTS, WORKBOOK])
+    assert (SAMPLES / "README.md").is_file()
