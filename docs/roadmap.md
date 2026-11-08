@@ -7,7 +7,7 @@ Milestones match the GitHub milestones of this repository. A milestone is comple
 | Milestone | Status |
 |---|---|
 | M0 Repository initialized | In progress |
-| M1 Development environment reproducible | Not started |
+| M1 Development environment reproducible | In progress |
 | M2 Core functionality implemented | Not started |
 | M3 Automated validation complete | Not started |
 | M4 Case studies complete | Not started |
@@ -19,14 +19,14 @@ Milestones match the GitHub milestones of this repository. A milestone is comple
 
 - [x] Original case study imported unchanged and tagged `baseline`
 - [ ] Private repository with client-facing README, AGENTS.md, roadmap and release checklist
-- [ ] Public-safety scan passing in CI
+- [x] Public-safety scan passing in CI
 
 Acceptance: the repository clones on its own, documentation is present, and the scan is clean.
 
 ## M1 — Development environment reproducible
 
-- [ ] Baseline reproduced and audited: results, defects, limitations (`docs/baseline-audit.md`)
-- [ ] Enhancements evaluated and the architecture decided before implementation (`docs/feasibility.md`, `docs/architecture.md`, `docs/decisions/`)
+- [x] Baseline reproduced and audited: results, defects, limitations (`docs/baseline-audit.md`)
+- [x] Enhancements evaluated and the architecture decided before implementation (`docs/feasibility.md`, `docs/architecture.md`, `docs/decisions/`)
 - [ ] Python package with pinned, tested dependency versions and a documented virtual-environment setup
 - [ ] CI workflow that installs the package and runs the tests
 
