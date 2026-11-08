@@ -8,7 +8,7 @@ Milestones match the GitHub milestones of this repository. A milestone is comple
 |---|---|
 | M0 Repository initialized | In progress |
 | M1 Development environment reproducible | In progress |
-| M2 Core functionality implemented | Not started |
+| M2 Core functionality implemented | In progress (Excel report open) |
 | M3 Automated validation complete | Not started |
 | M4 Case studies complete | Not started |
 | M5 Portfolio assets complete | Not started |
@@ -28,20 +28,20 @@ Acceptance: the repository clones on its own, documentation is present, and the 
 - [x] Baseline reproduced and audited: results, defects, limitations (`docs/baseline-audit.md`)
 - [x] Enhancements evaluated and the architecture decided before implementation (`docs/feasibility.md`, `docs/architecture.md`, `docs/decisions/`)
 - [ ] Python package with pinned, tested dependency versions and a documented virtual-environment setup
-- [ ] CI workflow that installs the package and runs the tests
+- [x] CI workflow that installs the package and runs the tests
 
 Acceptance: a person with Python 3.11+ can set up the project and run the tests by following the README alone.
 
 ## M2 — Core functionality implemented
 
-- [ ] Deterministic generator: the baseline scenario byte-identical, scale datasets with known expected results, the "day 2" batch
-- [ ] Streaming reader with header checks, malformed-row handling and explicit encoding
-- [ ] Validation rules loaded from `config/rules.toml`, with actionable errors for invalid configuration
-- [ ] Order-independent duplicate resolution with conflict quarantine
-- [ ] Incremental processing with file identity, content hashes, safe reruns and a full-rebuild option
-- [ ] Assisted correction: safe normalization, suggestions that need approval, review file and audit trail
-- [ ] Reconciliation checks and row-level outcomes for every source row
-- [ ] CSV outputs with formula-injection protection and safe file replacement
+- [x] Deterministic generator: the baseline scenario byte-identical, scale datasets with known expected results, the "day 2" batch
+- [x] Streaming reader with header checks, malformed-row handling and explicit encoding
+- [x] Validation rules loaded from `config/rules.toml`, with actionable errors for invalid configuration
+- [x] Order-independent duplicate resolution with conflict quarantine
+- [x] Incremental processing with file identity, content hashes, safe reruns and a full-rebuild option
+- [x] Assisted correction: safe normalization, suggestions that need approval, review file and audit trail
+- [x] Reconciliation checks and row-level outcomes for every source row
+- [x] CSV outputs with formula-injection protection and safe file replacement
 - [ ] Reproducible Excel report: dashboard, monthly revenue, data quality, rejected rows, duplicate review, clean orders, processing audit
 
 Acceptance: on the original data the default rules reproduce the baseline business results, or each difference is a documented, tested correction.
