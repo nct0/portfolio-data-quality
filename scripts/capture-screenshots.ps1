@@ -5,8 +5,9 @@
 .DESCRIPTION
     1. Runs the pipeline on the original three exports, and on those plus the late batch with the demo decisions,
        into a temporary folder.
-    2. Opens each report in Excel (read-only, hidden) and copies cell ranges as pictures, so the images show only
-       the sheet: no ribbon, window title, user name, file path or taskbar.
+    2. Opens each report in Excel (read-only, hidden) and stops if Excel had to repair it (Excel writes a repair log
+       named error*.xml to the temporary folder). Then copies cell ranges as pictures, so the images show only the
+       sheet: no ribbon, window title, user name, file path or taskbar.
     3. Enlarges each picture inside a temporary chart and exports it as PNG, then removes PNG metadata chunks.
 
     Requires Windows with Microsoft Excel and the project's virtual environment. The clipboard is overwritten.
@@ -65,6 +66,15 @@ function Save-RangePicture($Sheet, [string]$Address, [string]$Name, [int]$Target
     }
 }
 
+function Open-Report($Excel, [string]$Path) {
+    $logs = @(Get-ChildItem ([IO.Path]::GetTempPath()) -Filter "error*.xml" -ErrorAction SilentlyContinue).Count
+    $book = $Excel.Workbooks.Open($Path, 0, $true)
+    $after = @(Get-ChildItem ([IO.Path]::GetTempPath()) -Filter "error*.xml" -ErrorAction SilentlyContinue).Count
+    if ($after -ne $logs) { throw "Excel repaired $Path while opening it" }
+    Write-Host "  opened without repair: $($book.Worksheets.Count) sheets"
+    return $book
+}
+
 function Get-LastRow($Sheet) {
     $used = $Sheet.UsedRange
     $last = $used.Row + $used.Rows.Count - 1
@@ -93,17 +103,20 @@ $excel.DisplayAlerts = $false
 $numberAsText = $excel.ErrorCheckingOptions.NumberAsText
 try {
     "baseline report:"
-    $book = $excel.Workbooks.Open("$work\baseline\order_quality_report.xlsx", 0, $true)
+    $book = Open-Report $excel "$work\baseline\order_quality_report.xlsx"
     $dashboard = $book.Worksheets.Item("Executive Dashboard")
     $lastColumn = Get-LastColumn $dashboard
     Save-RangePicture $dashboard (Get-Address $dashboard (Get-LastRow $dashboard) $lastColumn) "dashboard.png"
-    $checksEnd = $dashboard.Columns(2).Find("What this means").Row - 2
-    Save-RangePicture $dashboard (Get-Address $dashboard $checksEnd $lastColumn) "dashboard-summary.png"
+    # The cards without the charts: everything above the first chart.
+    $cardsEnd = $dashboard.ChartObjects(1).TopLeftCell.Row - 1
+    Save-RangePicture $dashboard (Get-Address $dashboard $cardsEnd $lastColumn) "dashboard-summary.png"
 
     $sheet = $book.Worksheets.Item("Monthly Revenue")
     Save-RangePicture $sheet (Get-Address $sheet (Get-LastRow $sheet) (Get-LastColumn $sheet)) "monthly-revenue.png"
     $sheet = $book.Worksheets.Item("Data Quality Summary")
     Save-RangePicture $sheet (Get-Address $sheet (Get-LastRow $sheet) (Get-LastColumn $sheet)) "data-quality-report.png"
+    $sheet = $book.Worksheets.Item("Reconciliation Audit")
+    Save-RangePicture $sheet (Get-Address $sheet (Get-LastRow $sheet) (Get-LastColumn $sheet)) "reconciliation-audit.png"
     $sheet = $book.Worksheets.Item("Rejected Records")
     Save-RangePicture $sheet (Get-Address $sheet 24 (Get-LastColumn $sheet)) "rejected-records.png"
 
@@ -116,7 +129,7 @@ try {
     $book.Close($false)
 
     "late-batch report:"
-    $book = $excel.Workbooks.Open("$work\late-batch\order_quality_report.xlsx", 0, $true)
+    $book = Open-Report $excel "$work\late-batch\order_quality_report.xlsx"
     $sheet = $book.Worksheets.Item("Correction Log")
     Save-RangePicture $sheet (Get-Address $sheet (Get-LastRow $sheet) (Get-LastColumn $sheet)) "correction-log.png"
     $book.Close($false)
