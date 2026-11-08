@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" width="1200" height="520" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <title>How the order_quality pipeline works: inputs, six processing steps around an on-disk staging database, and the outputs</title>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="520" fill="#ffffff"/>
+
+  <text x="30" y="46" font-size="24" font-weight="700" fill="#1f2937">From messy exports to a reconciled report</text>
+  <text x="30" y="74" font-size="14" fill="#4b5563">One local Python process · standard library + XlsxWriter · no servers, no cloud, no network access</text>
+
+  <!-- column labels -->
+  <g font-size="12" font-weight="700" fill="#64748b" letter-spacing="1">
+    <text x="30" y="110">INPUTS</text>
+    <text x="320" y="110">PER FILE, STREAMED IN BATCHES</text>
+    <text x="940" y="110">OUTPUTS</text>
+    <text x="425" y="356">OVER ALL STAGED ROWS, ON EVERY RUN</text>
+  </g>
+
+  <!-- inputs -->
+  <g font-size="13" fill="#4b5563">
+    <rect x="30" y="122" width="230" height="72" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="46" y="151" font-size="16" font-weight="700" fill="#1f2937">Order exports</text>
+    <text x="46" y="174">CSV files, any number, late or re-sent</text>
+    <rect x="30" y="214" width="230" height="72" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="46" y="243" font-size="16" font-weight="700" fill="#1f2937">Reference data</text>
+    <text x="46" y="266">product prices, sales channels</text>
+    <rect x="30" y="306" width="230" height="72" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="46" y="335" font-size="16" font-weight="700" fill="#1f2937">Validation rules</text>
+    <text x="46" y="358">rules.toml, readable by the client</text>
+    <rect x="30" y="398" width="230" height="72" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="46" y="427" font-size="16" font-weight="700" fill="#1f2937">Reviewer decisions</text>
+    <text x="46" y="450">APPROVE / REJECT per suggestion</text>
+  </g>
+  <g stroke="#94a3b8" stroke-width="1.5" fill="none">
+    <path d="M260,158 H290 M260,250 H290 M260,342 H290 M260,434 H290 M290,158 V434"/>
+  </g>
+  <path d="M290,172 H316" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- row 1: per file -->
+  <g font-size="13" fill="#4b5563">
+    <rect x="320" y="122" width="170" height="104" rx="8" fill="#f1f5fb" stroke="#c7d4e8" stroke-width="1.5"/>
+    <circle cx="344" cy="146" r="12" fill="#1f4e8c"/><text x="344" y="151" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+    <text x="364" y="152" font-size="16" font-weight="700" fill="#1f2937">Read</text>
+    <text x="334" y="178">streams each file</text>
+    <text x="334" y="196">checks the header</text>
+    <text x="334" y="214">keeps line numbers</text>
+
+    <rect x="515" y="122" width="170" height="104" rx="8" fill="#f1f5fb" stroke="#c7d4e8" stroke-width="1.5"/>
+    <circle cx="539" cy="146" r="12" fill="#1f4e8c"/><text x="539" y="151" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+    <text x="559" y="152" font-size="16" font-weight="700" fill="#1f2937">Normalize</text>
+    <text x="529" y="178">trims spaces, fixes case</text>
+    <text x="529" y="196">dates to YYYY-MM-DD</text>
+    <text x="529" y="214">approved corrections</text>
+
+    <rect x="710" y="122" width="170" height="104" rx="8" fill="#f1f5fb" stroke="#c7d4e8" stroke-width="1.5"/>
+    <circle cx="734" cy="146" r="12" fill="#1f4e8c"/><text x="734" y="151" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+    <text x="754" y="152" font-size="16" font-weight="700" fill="#1f2937">Validate</text>
+    <text x="724" y="178">rules from rules.toml</text>
+    <text x="724" y="196">prices, SKUs, channels</text>
+    <text x="724" y="214">reason code per issue</text>
+  </g>
+  <g stroke="#64748b" stroke-width="1.5" fill="none" marker-end="url(#arrow)">
+    <path d="M490,174 H513"/>
+    <path d="M685,174 H708"/>
+    <path d="M795,226 V258"/>
+  </g>
+
+  <!-- staging database -->
+  <g>
+    <path d="M320,272 V314 A280,12 0 0 0 880,314 V272" fill="#fff7e6" stroke="#e3c27a" stroke-width="1.5"/>
+    <ellipse cx="600" cy="272" rx="280" ry="12" fill="#fff7e6" stroke="#e3c27a" stroke-width="1.5"/>
+    <text x="600" y="300" font-size="15" font-weight="700" fill="#1f2937" text-anchor="middle">Staging and processing state (SQLite, on disk)</text>
+    <text x="600" y="319" font-size="13" fill="#4b5563" text-anchor="middle">a content hash per file: unchanged files are reused, never ingested twice</text>
+  </g>
+  <path d="M405,327 V362" stroke="#64748b" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- row 2: over all rows -->
+  <g font-size="13" fill="#4b5563">
+    <rect x="320" y="366" width="170" height="104" rx="8" fill="#f1f5fb" stroke="#c7d4e8" stroke-width="1.5"/>
+    <circle cx="344" cy="390" r="12" fill="#1f4e8c"/><text x="344" y="395" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+    <text x="364" y="396" font-size="16" font-weight="700" fill="#1f2937">Deduplicate</text>
+    <text x="334" y="422">all versions compared</text>
+    <text x="334" y="440">copies counted once</text>
+    <text x="334" y="458">conflicts held back</text>
+
+    <rect x="515" y="366" width="170" height="104" rx="8" fill="#f1f5fb" stroke="#c7d4e8" stroke-width="1.5"/>
+    <circle cx="539" cy="390" r="12" fill="#1f4e8c"/><text x="539" y="395" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">5</text>
+    <text x="559" y="396" font-size="16" font-weight="700" fill="#1f2937">Reconcile</text>
+    <text x="529" y="422">one outcome per row</text>
+    <text x="529" y="440">6 checks, PASS or FAIL</text>
+    <text x="529" y="458">totals re-read from disk</text>
+
+    <rect x="710" y="366" width="170" height="104" rx="8" fill="#f1f5fb" stroke="#c7d4e8" stroke-width="1.5"/>
+    <circle cx="734" cy="390" r="12" fill="#1f4e8c"/><text x="734" y="395" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">6</text>
+    <text x="754" y="396" font-size="16" font-weight="700" fill="#1f2937">Report</text>
+    <text x="724" y="422">CSV files and JSON</text>
+    <text x="724" y="440">Excel workbook</text>
+    <text x="724" y="458">safe file replacement</text>
+  </g>
+  <g stroke="#64748b" stroke-width="1.5" fill="none" marker-end="url(#arrow)">
+    <path d="M490,418 H513"/>
+    <path d="M685,418 H708"/>
+  </g>
+
+  <!-- outputs -->
+  <path d="M880,418 H910" stroke="#94a3b8" stroke-width="1.5" fill="none"/>
+  <g stroke="#94a3b8" stroke-width="1.5" fill="none">
+    <path d="M910,158 V434"/>
+  </g>
+  <g stroke="#64748b" stroke-width="1.5" fill="none" marker-end="url(#arrow)">
+    <path d="M910,158 H936"/>
+    <path d="M910,250 H936"/>
+    <path d="M910,342 H936"/>
+    <path d="M910,434 H936"/>
+  </g>
+  <g font-size="13" fill="#4b5563">
+    <rect x="940" y="122" width="230" height="72" rx="8" fill="#eef7ee" stroke="#a7d3ae" stroke-width="1.5"/>
+    <text x="956" y="151" font-size="16" font-weight="700" fill="#1f2937">Excel report</text>
+    <text x="956" y="174">dashboard, revenue, review sheets</text>
+    <rect x="940" y="214" width="230" height="72" rx="8" fill="#eef7ee" stroke="#a7d3ae" stroke-width="1.5"/>
+    <text x="956" y="243" font-size="16" font-weight="700" fill="#1f2937">Clean data</text>
+    <text x="956" y="266">clean orders, monthly revenue</text>
+    <rect x="940" y="306" width="230" height="72" rx="8" fill="#eef7ee" stroke="#a7d3ae" stroke-width="1.5"/>
+    <text x="956" y="335" font-size="16" font-weight="700" fill="#1f2937">Exception reports</text>
+    <text x="956" y="358">rejected rows, duplicates, fixes</text>
+    <rect x="940" y="398" width="230" height="72" rx="8" fill="#eef7ee" stroke="#a7d3ae" stroke-width="1.5"/>
+    <text x="956" y="427" font-size="16" font-weight="700" fill="#1f2937">Audit trail</text>
+    <text x="956" y="450">row outcomes, quality report</text>
+  </g>
+</svg>

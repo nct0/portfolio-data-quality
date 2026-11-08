@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1076 770" width="1076" height="770">
+  <title>Example order rows before and after the data-quality pipeline</title>
+  <rect width="1076" height="770" fill="#FFFFFF"/>
+  <text x="24" y="40" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#1F2937">What happens to each row</text>
+  <text x="24" y="64" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#6B7280">Real rows from the demo data: as they arrived (white) and what the pipeline made of them (grey).</text>
+  <rect x="24" y="82" width="1028" height="30" rx="0" fill="#1F4E8C"/>
+  <text x="31" y="102" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF">Source</text>
+  <text x="155" y="102" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF">Order ID</text>
+  <text x="255" y="102" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF">Customer</text>
+  <text x="337" y="102" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF">Date</text>
+  <text x="441" y="102" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF">SKU</text>
+  <text x="529" y="102" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF">Qty</text>
+  <text x="573" y="102" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF">Amount</text>
+  <text x="653" y="102" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF">Channel</text>
+  <text x="765" y="102" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF">Status</text>
+  <text x="869" y="102" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF">Outcome</text>
+  <text x="26" y="135" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#1F4E8C">Standardized automatically</text>
+  <text x="251.2" y="135" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280">extra spaces, letter case and agreed date formats; no approval needed</text>
+  <text x="32" y="165" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280">export 1, line 9</text>
+  <text x="155" y="165" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">ORD-002578</text>
+  <text x="255" y="165" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">C-0786</text>
+  <rect x="332" y="149" width="98" height="22" rx="4" fill="#FFF2B3"/>
+  <text x="337" y="165" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">03/25/2026</text>
+  <rect x="436" y="149" width="82" height="22" rx="4" fill="#FFF2B3"/>
+  <text x="441" y="165" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">·SKU-003·</text>
+  <text x="529" y="165" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">3</text>
+  <text x="573" y="165" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">21.75</text>
+  <rect x="648" y="149" width="106" height="22" rx="4" fill="#FFF2B3"/>
+  <text x="653" y="165" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">web</text>
+  <rect x="760" y="149" width="98" height="22" rx="4" fill="#FFF2B3"/>
+  <text x="765" y="165" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">completed</text>
+  <rect x="24" y="174" width="1028" height="28" rx="0" fill="#F5F7FA"/>
+  <text x="32" y="193" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280" font-style="italic">↳ result</text>
+  <text x="155" y="193" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">ORD-002578</text>
+  <text x="255" y="193" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">C-0786</text>
+  <rect x="332" y="177" width="98" height="22" rx="4" fill="#D5EFD8"/>
+  <text x="337" y="193" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">2026-03-25</text>
+  <rect x="436" y="177" width="82" height="22" rx="4" fill="#D5EFD8"/>
+  <text x="441" y="193" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">SKU-003</text>
+  <text x="529" y="193" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">3</text>
+  <text x="573" y="193" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">21.75</text>
+  <rect x="648" y="177" width="106" height="22" rx="4" fill="#D5EFD8"/>
+  <text x="653" y="193" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">Web</text>
+  <rect x="760" y="177" width="98" height="22" rx="4" fill="#D5EFD8"/>
+  <text x="765" y="193" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">Completed</text>
+  <rect x="868" y="178" width="74" height="20" rx="10" fill="#E3F4E3"/>
+  <text x="877" y="192" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#006300">Accepted</text>
+  <path d="M24,202 H1052" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="26" y="225" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#1F4E8C">Rejected with a reason</text>
+  <text x="218.39999999999998" y="225" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280">kept out of every total, listed with its file, line and reason</text>
+  <text x="32" y="255" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280">export 1, line 735</text>
+  <text x="155" y="255" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">ORD-000017</text>
+  <text x="255" y="255" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">C-0620</text>
+  <text x="337" y="255" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">16-Jan-2026</text>
+  <text x="441" y="255" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">·SKU-003·</text>
+  <text x="529" y="255" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">1</text>
+  <rect x="568" y="239" width="74" height="22" rx="4" fill="#F9D2D0"/>
+  <text x="573" y="255" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">9999.99</text>
+  <text x="653" y="255" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">web</text>
+  <text x="765" y="255" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">·Completed·</text>
+  <rect x="24" y="264" width="1028" height="28" rx="0" fill="#F5F7FA"/>
+  <text x="32" y="283" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280" font-style="italic">↳ result</text>
+  <text x="155" y="283" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1F2937">AMOUNT_MISMATCH: The amount differs from unit price x quantity by more than the tolerance.</text>
+  <rect x="868" y="268" width="74" height="20" rx="10" fill="#FBE3E3"/>
+  <text x="877" y="282" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#B42318">Rejected</text>
+  <path d="M24,292 H1052" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="32" y="311" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280">export 1, line 45</text>
+  <text x="155" y="311" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">ORD-000030</text>
+  <text x="255" y="311" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">C-0309</text>
+  <text x="337" y="311" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">03/08/2026</text>
+  <text x="441" y="311" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">SKU-006</text>
+  <rect x="524" y="295" width="38" height="22" rx="4" fill="#F9D2D0"/>
+  <text x="529" y="311" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">0</text>
+  <text x="573" y="311" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">315.00</text>
+  <text x="653" y="311" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">·Marketplace·</text>
+  <text x="765" y="311" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">Completed</text>
+  <rect x="24" y="320" width="1028" height="28" rx="0" fill="#F5F7FA"/>
+  <text x="32" y="339" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280" font-style="italic">↳ result</text>
+  <text x="155" y="339" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1F2937">INVALID_QUANTITY: The quantity is not a whole number of at least the configured minimum.</text>
+  <rect x="868" y="324" width="74" height="20" rx="10" fill="#FBE3E3"/>
+  <text x="877" y="338" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#B42318">Rejected</text>
+  <path d="M24,348 H1052" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="26" y="371" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#1F4E8C">Duplicates</text>
+  <text x="120.0" y="371" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280">compared after standardization, over all files, whatever order they arrive in</text>
+  <text x="32" y="401" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280">export 1, line 1,146</text>
+  <text x="155" y="401" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">ORD-000101</text>
+  <text x="255" y="401" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">C-0729</text>
+  <text x="337" y="401" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">25-Jan-2026</text>
+  <text x="441" y="401" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">sku-003</text>
+  <text x="529" y="401" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">4</text>
+  <text x="573" y="401" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">29.00</text>
+  <text x="653" y="401" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">retail</text>
+  <text x="765" y="401" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">completed</text>
+  <text x="32" y="429" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280">export 3, line 688</text>
+  <text x="155" y="429" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">ORD-000101</text>
+  <text x="255" y="429" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">C-0729</text>
+  <text x="337" y="429" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">25-Jan-2026</text>
+  <text x="441" y="429" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">sku-003</text>
+  <text x="529" y="429" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">4</text>
+  <text x="573" y="429" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">29.00</text>
+  <text x="653" y="429" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">retail</text>
+  <text x="765" y="429" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">completed</text>
+  <rect x="24" y="438" width="1028" height="28" rx="0" fill="#F5F7FA"/>
+  <text x="32" y="457" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280" font-style="italic">↳ result</text>
+  <text x="155" y="457" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1F2937">Identical orders: the first row is accepted, the copy is counted once.</text>
+  <rect x="868" y="442" width="137" height="20" rx="10" fill="#EDEDEA"/>
+  <text x="877" y="456" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#475467">Duplicate ignored</text>
+  <path d="M24,466 H1052" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="32" y="485" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280">export 1, line 978</text>
+  <text x="155" y="485" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">ORD-000600</text>
+  <text x="255" y="485" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">C-0471</text>
+  <text x="337" y="485" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">2026-03-02</text>
+  <text x="441" y="485" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">·SKU-008·</text>
+  <rect x="524" y="469" width="38" height="22" rx="4" fill="#FAD9BF"/>
+  <text x="529" y="485" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">1</text>
+  <rect x="568" y="469" width="74" height="22" rx="4" fill="#FAD9BF"/>
+  <text x="573" y="485" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">11.00</text>
+  <text x="653" y="485" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">·Retail·</text>
+  <text x="765" y="485" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">completed</text>
+  <text x="32" y="513" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280">export 4, line 15</text>
+  <text x="155" y="513" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">ORD-000600</text>
+  <text x="255" y="513" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">C-0471</text>
+  <text x="337" y="513" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">2026-03-02</text>
+  <text x="441" y="513" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">SKU-008</text>
+  <rect x="524" y="497" width="38" height="22" rx="4" fill="#FAD9BF"/>
+  <text x="529" y="513" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">2</text>
+  <rect x="568" y="497" width="74" height="22" rx="4" fill="#FAD9BF"/>
+  <text x="573" y="513" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">22.00</text>
+  <text x="653" y="513" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">Retail</text>
+  <text x="765" y="513" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">completed</text>
+  <rect x="24" y="522" width="1028" height="28" rx="0" fill="#F5F7FA"/>
+  <text x="32" y="541" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280" font-style="italic">↳ result</text>
+  <text x="155" y="541" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1F2937">Same order ID, different quantity and amount: both versions are held back until someone decides.</text>
+  <rect x="868" y="526" width="95" height="20" rx="10" fill="#FDE9D9"/>
+  <text x="877" y="540" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#B54708">Quarantined</text>
+  <path d="M24,550 H1052" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="26" y="573" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#1F4E8C">Corrections that need approval</text>
+  <text x="284.0" y="573" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280">a suggested fix is applied only after a reviewer approves it</text>
+  <text x="32" y="603" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280">export 4, line 37</text>
+  <text x="155" y="603" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">ORD-005302</text>
+  <text x="255" y="603" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">C-0389</text>
+  <text x="337" y="603" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">2026-07-10</text>
+  <rect x="436" y="587" width="82" height="22" rx="4" fill="#D6E4FA"/>
+  <text x="441" y="603" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">sku 003</text>
+  <text x="529" y="603" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">4</text>
+  <text x="573" y="603" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">29.00</text>
+  <text x="653" y="603" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">Web</text>
+  <text x="765" y="603" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">Completed</text>
+  <rect x="24" y="612" width="1028" height="28" rx="0" fill="#F5F7FA"/>
+  <text x="32" y="631" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280" font-style="italic">↳ result</text>
+  <text x="155" y="631" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">ORD-005302</text>
+  <text x="255" y="631" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">C-0389</text>
+  <text x="337" y="631" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">2026-07-10</text>
+  <rect x="436" y="615" width="82" height="22" rx="4" fill="#D5EFD8"/>
+  <text x="441" y="631" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">SKU-003</text>
+  <text x="529" y="631" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">4</text>
+  <text x="573" y="631" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">29.00</text>
+  <text x="653" y="631" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">Web</text>
+  <text x="765" y="631" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">Completed</text>
+  <rect x="868" y="616" width="74" height="20" rx="10" fill="#E3F4E3"/>
+  <text x="877" y="630" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#006300">Accepted</text>
+  <text x="950" y="630" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280">fix approved</text>
+  <path d="M24,640 H1052" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="32" y="659" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280">export 4, line 22</text>
+  <text x="155" y="659" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">ORD-005313</text>
+  <text x="255" y="659" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">C-0650</text>
+  <text x="337" y="659" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">2026-07-10</text>
+  <text x="441" y="659" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">SKU-004</text>
+  <text x="529" y="659" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">3</text>
+  <text x="573" y="659" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">54.00</text>
+  <rect x="648" y="643" width="106" height="22" rx="4" fill="#D6E4FA"/>
+  <text x="653" y="659" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">Webb</text>
+  <text x="765" y="659" font-family="Consolas, Menlo, monospace" font-size="13" font-weight="400" fill="#1F2937">Completed</text>
+  <rect x="24" y="668" width="1028" height="28" rx="0" fill="#F5F7FA"/>
+  <text x="32" y="687" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280" font-style="italic">↳ result</text>
+  <text x="155" y="687" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1F2937">UNKNOWN_CHANNEL: the suggested “Web” waits for a reviewer; nothing changes until it is approved.</text>
+  <rect x="868" y="672" width="74" height="20" rx="10" fill="#FBE3E3"/>
+  <text x="877" y="686" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#B42318">Rejected</text>
+  <path d="M24,696 H1052" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="24" y="712" width="16" height="16" rx="3" fill="#FFF2B3"/>
+  <text x="46" y="725" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280">standardized automatically</text>
+  <rect x="234.4" y="712" width="16" height="16" rx="3" fill="#F9D2D0"/>
+  <text x="256.4" y="725" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280">reason for rejection</text>
+  <rect x="406.4" y="712" width="16" height="16" rx="3" fill="#FAD9BF"/>
+  <text x="428.4" y="725" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280">conflicting values</text>
+  <rect x="565.5999999999999" y="712" width="16" height="16" rx="3" fill="#D6E4FA"/>
+  <text x="587.5999999999999" y="725" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280">suggested correction</text>
+  <rect x="737.5999999999999" y="712" width="16" height="16" rx="3" fill="#D5EFD8"/>
+  <text x="759.5999999999999" y="725" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280">value after cleaning</text>
+  <text x="24" y="750" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#6B7280">· marks a space at the start or end of a value. Generated by scripts/make-before-after.py from data/raw, data/late-batch and corrections/demo-decisions.csv.</text>
+</svg>
