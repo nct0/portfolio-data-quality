@@ -1,0 +1,163 @@
+{
+  "report_version": 1,
+  "status": "PASS",
+  "rows": {
+    "input": 5293,
+    "accepted": 5157,
+    "rejected": 99,
+    "duplicate_ignored": 22,
+    "quarantined_conflict": 15,
+    "conflict_overridden": 0
+  },
+  "revenue": {
+    "currency": "USD",
+    "statuses": [
+      "Completed"
+    ],
+    "orders": 4388,
+    "amount": "352317.20"
+  },
+  "issues": {
+    "AMOUNT_MISMATCH": 10,
+    "INVALID_AMOUNT": 11,
+    "INVALID_DATE": 12,
+    "INVALID_QUANTITY": 11,
+    "MISSING_CUSTOMER_ID": 10,
+    "MISSING_ORDER_ID": 10,
+    "UNKNOWN_CHANNEL": 12,
+    "UNKNOWN_SKU": 11,
+    "UNKNOWN_STATUS": 12
+  },
+  "duplicates": {
+    "policy": "quarantine_all",
+    "exact_duplicate_order_ids": 22,
+    "conflicting_order_ids": 7,
+    "duplicate_rows_ignored": 22,
+    "quarantined_rows": 15,
+    "overridden_rows": 0
+  },
+  "normalizations": {
+    "channel": {
+      "alias_mapped": 45,
+      "case_standardized": 1752,
+      "whitespace_trimmed": 1739
+    },
+    "order_date": {
+      "date_to_iso": 3454
+    },
+    "sku": {
+      "uppercased": 1788,
+      "whitespace_trimmed": 1621
+    },
+    "status": {
+      "alias_mapped": 19,
+      "case_standardized": 1776,
+      "whitespace_trimmed": 1660
+    }
+  },
+  "corrections": {
+    "suggested": 17,
+    "applied": 14,
+    "rejected": 1,
+    "pending": 2,
+    "stale": 0,
+    "by_rule": {
+      "channel_typo": 3,
+      "date_format": 4,
+      "sku_format": 6,
+      "status_typo": 4
+    }
+  },
+  "checks": [
+    {
+      "check": "row_accounting",
+      "status": "PASS",
+      "detail": "5,293 input rows = 5,157 accepted + 99 rejected + 22 duplicate ignored + 15 quarantined conflict"
+    },
+    {
+      "check": "file_row_counts",
+      "status": "PASS",
+      "detail": "every staged file holds the rows read from it"
+    },
+    {
+      "check": "row_outcomes_complete",
+      "status": "PASS",
+      "detail": "5,293 rows in row_outcomes.csv for 5,293 input rows"
+    },
+    {
+      "check": "clean_order_ids_unique",
+      "status": "PASS",
+      "detail": "5,157 clean rows, 5,157 distinct order IDs, 5,157 accepted"
+    },
+    {
+      "check": "clean_amounts_match_prices",
+      "status": "PASS",
+      "detail": "every clean amount equals unit price x quantity within the tolerance"
+    },
+    {
+      "check": "revenue_reconciles",
+      "status": "PASS",
+      "detail": "monthly report 4,388 orders / 352,317.20 USD; clean detail 4,388 orders / 352,317.20 USD"
+    }
+  ],
+  "inputs": [
+    {
+      "file": "orders_export_1.csv",
+      "sha256": "d4a1eba74cfcc1824eaf08d56df88f05759d978760c4a87aeba95e6d82cb5612",
+      "bytes": 110473,
+      "data_rows": 1674,
+      "status": "INCLUDED",
+      "duplicate_of": ""
+    },
+    {
+      "file": "orders_export_2.csv",
+      "sha256": "107b759a0e89e317ef57f024cc45bddd04ffb11d1deb9e331b480e4e9458dda1",
+      "bytes": 110487,
+      "data_rows": 1673,
+      "status": "INCLUDED",
+      "duplicate_of": ""
+    },
+    {
+      "file": "orders_export_3.csv",
+      "sha256": "fc7ea4d5037c73fd506a566a0b667ba192072f7ee0a3025c1dbdcdc5b759898a",
+      "bytes": 110483,
+      "data_rows": 1673,
+      "status": "INCLUDED",
+      "duplicate_of": ""
+    },
+    {
+      "file": "orders_export_4.csv",
+      "sha256": "9e37eaf380e3262eefe03d3d302e115e87a7cd27cca11b36fba6b7d003b94ba1",
+      "bytes": 17505,
+      "data_rows": 273,
+      "status": "INCLUDED",
+      "duplicate_of": ""
+    }
+  ],
+  "rules": {
+    "source": "built-in defaults",
+    "sha256": "95715422c2f47ca34ac95735d097fdf6c00694b3f3c74f4972cf86a341e43f05",
+    "conflict_policy": "quarantine_all",
+    "amount_tolerance": "0.01",
+    "date_formats": [
+      "%Y-%m-%d",
+      "%m/%d/%Y",
+      "%d-%b-%Y"
+    ]
+  },
+  "reference": {
+    "sha256": "1e8f0b8e6cdcddba1757d990c2dd61fb7e53caa02144fe335f356568b51b6573",
+    "products": 8,
+    "channels": [
+      "Web",
+      "Marketplace",
+      "Retail"
+    ]
+  },
+  "notes": [
+    "Only Completed orders count toward revenue.",
+    "Exact duplicates are ignored; all versions of conflicting order IDs are quarantined from clean data.",
+    "No currency conversion; all amounts are USD.",
+    "Revenue is the gross order amount, before taxes or fees."
+  ]
+}

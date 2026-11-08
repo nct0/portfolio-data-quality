@@ -1,0 +1,18 @@
+﻿correction_id,source_file,source_line,order_id,field,rule,original_value,suggested_value,decision,reviewer,note
+CR-4c92b43b8bcf2502,orders_export_4.csv,22,ORD-005313,channel,channel_typo,Webb,Web,,,
+CR-55f250f59ad735af,orders_export_4.csv,37,ORD-005302,sku,sku_format,sku 003,SKU-003,APPROVE,ops-reviewer,SKU written without the standard hyphen
+CR-66c281cf83cbcc76,orders_export_4.csv,39,ORD-005312,channel,channel_typo,Marketplce,Marketplace,APPROVE,ops-reviewer,obvious spelling mistake
+CR-ff99d4b14c00ce9a,orders_export_4.csv,54,ORD-005305,sku,sku_format,SKU.008,SKU-008,APPROVE,ops-reviewer,SKU written without the standard hyphen
+CR-2cf3aac8731afd3d,orders_export_4.csv,57,ORD-005301,sku,sku_format,SKU007,SKU-007,APPROVE,ops-reviewer,SKU written without the standard hyphen
+CR-712745eb91d3d53c,orders_export_4.csv,102,ORD-005317,order_date,date_format,28 Jul 2026,2026-07-28,,,
+CR-c9f50dcebc6884d4,orders_export_4.csv,111,ORD-005310,status,status_typo,Compleeted,Completed,REJECT,ops-reviewer,Not confirmed by the client; keep for manual review
+CR-038e0c9ac567d89e,orders_export_4.csv,115,ORD-005311,channel,channel_typo,Retal,Retail,APPROVE,ops-reviewer,obvious spelling mistake
+CR-6531045a3f144ecf,orders_export_4.csv,160,ORD-005315,order_date,date_format,"Jul 21, 2026",2026-07-21,APPROVE,ops-reviewer,unambiguous year-first or month-name date
+CR-5e974125dab2620a,orders_export_4.csv,166,ORD-005307,status,status_typo,Complted,Completed,APPROVE,ops-reviewer,obvious spelling mistake
+CR-7b7a7c583bcf8b28,orders_export_4.csv,176,ORD-005309,status,status_typo,Refundd,Refunded,APPROVE,ops-reviewer,obvious spelling mistake
+CR-dc5b2962813d4ba4,orders_export_4.csv,178,ORD-005304,sku,sku_format,SKU002,SKU-002,APPROVE,ops-reviewer,SKU written without the standard hyphen
+CR-ea72530e99d699ee,orders_export_4.csv,181,ORD-005306,sku,sku_format,SKU 001,SKU-001,APPROVE,ops-reviewer,SKU written without the standard hyphen
+CR-a6192c979edd52b4,orders_export_4.csv,198,ORD-005314,order_date,date_format,2026/07/14,2026-07-14,APPROVE,ops-reviewer,unambiguous year-first or month-name date
+CR-a6e1281f491a9c43,orders_export_4.csv,218,ORD-005303,sku,sku_format,SKU_005,SKU-005,APPROVE,ops-reviewer,SKU written without the standard hyphen
+CR-9505c6050d7a90b1,orders_export_4.csv,251,ORD-005308,status,status_typo,Pendng,Pending,APPROVE,ops-reviewer,obvious spelling mistake
+CR-0ef7db3afe441fe3,orders_export_4.csv,268,ORD-005316,order_date,date_format,2026/07/02,2026-07-02,APPROVE,ops-reviewer,unambiguous year-first or month-name date
