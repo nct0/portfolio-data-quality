@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "order-quality"
+version = "1.0.0"
+description = "Clean, validate, deduplicate and reconcile messy e-commerce order exports into audited CSV and Excel reports."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+dependencies = ["XlsxWriter>=3.2,<4"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "openpyxl>=3.1"]
+
+[project.scripts]
+order-quality = "order_quality.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

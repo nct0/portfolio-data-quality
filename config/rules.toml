@@ -1,0 +1,60 @@
+# Validation rules for order exports.
+#
+# These values are the original business rules of the case study; the pipeline uses exactly the same
+# values when no --config is given. Every key is described in docs/reference.md. A mistake in this file
+# stops the run with an error code (CFG...) and a message that says what to fix.
+
+schema_version = 1
+
+[input]
+encoding = "utf-8-sig"          # UTF-8, with or without a byte-order mark
+file_pattern = "*.csv"          # files picked up from each --input folder
+
+[fields]
+required = ["order_id", "customer_id"]          # an empty value is rejected as MISSING_<FIELD>
+uppercase = ["order_id", "customer_id", "sku"]  # compared and reported in upper case
+trim_whitespace = true
+
+[dates]
+# The agreed formats. Anything else is rejected, never guessed.
+formats = ["%Y-%m-%d", "%m/%d/%Y", "%d-%b-%Y"]
+
+[amounts]
+currency = "USD"
+tolerance = "0.01"   # allowed difference between amount and unit price x quantity (a quoted decimal)
+max_decimals = 2     # more decimals are rejected instead of rounded
+
+[quantity]
+min = 1
+# max = 100          # optional upper limit
+
+[statuses]
+allowed = ["Completed", "Refunded", "Pending"]
+revenue = ["Completed"]   # statuses that count toward revenue
+
+# Approved value mappings, applied automatically (case-insensitive). Targets must be canonical values:
+# a channel from data/reference/channels.csv or an allowed status.
+[aliases.channel]
+"online" = "Web"
+"web shop" = "Web"
+"in store" = "Retail"
+"in-store" = "Retail"
+
+[aliases.status]
+"complete" = "Completed"
+
+# Suggestions that a reviewer must approve before they change data (see correction_review.csv).
+# Order IDs, customer IDs, quantities, amounts and prices are never suggested.
+[corrections]
+sku_format = true          # "SKU007" or "sku 007" -> "SKU-007" when exactly one SKU matches
+typos = true               # misspelled status or channel within max_typo_distance of exactly one value
+max_typo_distance = 2
+min_typo_length = 4
+date_formats = ["%Y/%m/%d", "%b %d, %Y", "%d %b %Y", "%B %d, %Y", "%d %B %Y"]  # unambiguous, not agreed
+
+[duplicates]
+conflict_policy = "quarantine_all"   # or "keep_first": first version by file name and line wins, others reported
+compare_fields = ["order_id", "customer_id", "order_date", "sku", "quantity", "amount_usd", "channel", "status"]
+
+[workbook]
+max_detail_rows = 100000   # detail sheets show at most this many rows; the CSV files always hold every row

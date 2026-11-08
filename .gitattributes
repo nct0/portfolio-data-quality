@@ -5,6 +5,7 @@
 # Data files are compared byte for byte: store them exactly as generated (CRLF from Python's csv module).
 *.csv -text
 data/**/*.json -text
+tests/fixtures/**/*.json -text
 *.xlsx binary
 *.png binary
 *.jpg binary

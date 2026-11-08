@@ -1,0 +1,5 @@
+# Exact versions the test suite was run with. Install with:
+#   python -m pip install -r requirements-dev.txt -e .
+XlsxWriter==3.3.1
+pytest==9.2.0
+openpyxl==3.1.5
