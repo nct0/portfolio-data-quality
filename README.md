@@ -69,7 +69,7 @@ The original project (kept unchanged at the `baseline` tag) reproduced its docum
 | Month names read with the computer's language setting | German setting: 576 dates rejected, revenue $293,883.05 | Same result on every system | `test_dates_and_generator_do_not_depend_on_the_process_locale` |
 | No spreadsheet formula protection | Customer ID `=1+1` reached the clean file as a formula | Written as text | `test_formula_like_values_are_neutralized_in_every_csv` |
 | One line with an extra field | The whole run crashed | That row is rejected as `MALFORMED_ROW`; the run continues | `test_rows_with_too_many_or_too_few_fields_are_rejected_not_crashing` |
-| Workbook made by hand, outside the code | Not reproducible | Rebuilt on every run, byte-identical for the same inputs | `test_workbook_bytes_are_deterministic` |
+| Workbook made by hand, outside the code | Not reproducible | Rebuilt on every run, byte-identical for the same inputs on the same system | `test_workbook_bytes_are_deterministic` |
 
 On the original 5,020 rows the default rules give the original business result: the same 4,905 clean orders, the same 90 rejected rows and $333,886.85 (`tests/test_baseline_regression.py`). The differences in reporting are listed under [corrections to the baseline rules](docs/reference.md#corrections-to-the-baseline-rules).
 
@@ -104,7 +104,7 @@ What this shows, and what it does not:
 
 ## 5. Setup and reproduction
 
-Requirements: Python 3.11 or later (tested on 3.11, 3.13 and 3.15) and Git. No database server, no cloud account, no network access while running. Microsoft Excel is only needed to open the report.
+Requirements: Python 3.11 or later (tested on 3.11, 3.12, 3.13 and 3.15) and Git. No database server, no cloud account, no network access while running. Microsoft Excel is only needed to open the report.
 
 ```bash
 git clone <repository URL>
@@ -144,8 +144,8 @@ python -m order_quality run --input data/raw --input data/late-batch --correctio
 To review corrections yourself, copy `output/correction_review.csv`, write `APPROVE` or `REJECT` in its `decision` column, and pass your copy with `--corrections`. A larger dataset with known expected results:
 
 ```bash
-python -m order_quality generate --scenario scale --rows 100000 --files 5 --seed 1 --out bench-data
-python -m order_quality run --input bench-data/raw --reference bench-data/reference --out bench-output
+python -m order_quality generate --scenario scale --rows 100000 --files 5 --seed 1 --out benchmarks/data/100k
+python -m order_quality run --input benchmarks/data/100k/raw --reference benchmarks/data/100k/reference --out output/100k
 ```
 
 All options, exit codes and the correction workflow: [docs/reference.md](docs/reference.md).
