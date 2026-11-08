@@ -6,19 +6,19 @@ Milestones match the GitHub milestones of this repository. A milestone is comple
 
 | Milestone | Status |
 |---|---|
-| M0 Repository initialized | In progress |
-| M1 Development environment reproducible | In progress |
-| M2 Core functionality implemented | In progress (Excel report open) |
-| M3 Automated validation complete | Not started |
-| M4 Case studies complete | Not started |
-| M5 Portfolio assets complete | Not started |
+| M0 Repository initialized | Done |
+| M1 Development environment reproducible | Done |
+| M2 Core functionality implemented | Done |
+| M3 Automated validation complete | Done |
+| M4 Case studies complete | Done |
+| M5 Portfolio assets complete | In progress (Upwork and Catalog texts await the owner's review) |
 | M6 Public release approved | Not started |
 | M7 Upwork Catalog published | Not started |
 
 ## M0 — Repository initialized
 
 - [x] Original case study imported unchanged and tagged `baseline`
-- [ ] Private repository with client-facing README, AGENTS.md, roadmap and release checklist
+- [x] Private repository with client-facing README, AGENTS.md, roadmap and release checklist
 - [x] Public-safety scan passing in CI
 
 Acceptance: the repository clones on its own, documentation is present, and the scan is clean.
@@ -27,7 +27,7 @@ Acceptance: the repository clones on its own, documentation is present, and the 
 
 - [x] Baseline reproduced and audited: results, defects, limitations (`docs/baseline-audit.md`)
 - [x] Enhancements evaluated and the architecture decided before implementation (`docs/feasibility.md`, `docs/architecture.md`, `docs/decisions/`)
-- [ ] Python package with pinned, tested dependency versions and a documented virtual-environment setup
+- [x] Python package with pinned, tested dependency versions and a documented virtual-environment setup
 - [x] CI workflow that installs the package and runs the tests
 
 Acceptance: a person with Python 3.11+ can set up the project and run the tests by following the README alone.
@@ -42,26 +42,26 @@ Acceptance: a person with Python 3.11+ can set up the project and run the tests 
 - [x] Assisted correction: safe normalization, suggestions that need approval, review file and audit trail
 - [x] Reconciliation checks and row-level outcomes for every source row
 - [x] CSV outputs with formula-injection protection and safe file replacement
-- [ ] Reproducible Excel report: dashboard, monthly revenue, data quality, rejected rows, duplicate review, clean orders, processing audit
+- [x] Reproducible Excel report: dashboard, monthly revenue, data quality, rejected rows, duplicate review, clean orders, processing audit
 
 Acceptance: on the original data the default rules reproduce the baseline business results, or each difference is a documented, tested correction.
 
 ## M3 — Automated validation complete
 
-- [ ] Unit and integration tests for every area listed in the brief, including equivalence of full rebuild, incremental runs and batch sizes
-- [ ] CI green
-- [ ] Benchmarks measured for 5,000, 100,000 and 1,000,000 rows
+- [x] Unit and integration tests for every area listed in the brief, including equivalence of full rebuild, incremental runs and batch sizes
+- [x] CI green
+- [x] Benchmarks measured for 5,000, 100,000 and 1,000,000 rows
 
 Acceptance: one command runs all tests, CI is green, and every benchmark figure comes from a committed result.
 
 ## M4 — Case studies complete
 
-- [ ] Case study: three messy exports and a late batch to a reconciled report, from the template, every number traced
+- [x] Case study: three messy exports and a late batch to a reconciled report, from the template, every number traced ([case 01](case-studies/case-01-messy-exports-to-reconciled-report.md))
 
 ## M5 — Portfolio assets complete
 
-- [ ] Screenshots of the generated workbook, architecture and data-flow diagrams, before/after illustration
-- [ ] README evidence sections filled from measured data
+- [x] Screenshots of the generated workbook, architecture and data-flow diagrams, before/after illustration
+- [x] README evidence sections filled from measured data
 - [ ] Upwork portfolio entry and Catalog text finalized (kept in private notes, outside this repository)
 
 ## M6 — Public release approved
