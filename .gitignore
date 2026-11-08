@@ -1,5 +1,45 @@
-__pycache__/
-*.pyc
-.venv/
+# OS and editors
 .DS_Store
-~$*.xlsx
+Thumbs.db
+desktop.ini
+*.swp
+*~
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+
+# Secrets and local configuration: never commit
+.env
+.env.*
+!.env.example
+*.local.*
+*.pem
+*.key
+*.pfx
+*.p12
+secrets.json
+credentials.json
+
+# Run output, processing state and generated benchmark data (commit samples/ and benchmarks/results/ only)
+output/
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.db
+benchmarks/data/
+benchmarks/runs/
+
+# Excel lock files
+~$*
+
+# Private notes
+.private/
