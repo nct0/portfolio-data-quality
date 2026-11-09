@@ -12,7 +12,7 @@ Milestones match the GitHub milestones of this repository. A milestone is comple
 | M3 Automated validation complete | Done |
 | M4 Case studies complete | Done |
 | M5 Portfolio assets complete | In progress (Upwork and Catalog texts await the owner's review) |
-| M6 Public release approved | Not started |
+| M6 Public release approved | Done (2026-11-09); visibility change by the owner |
 | M7 Upwork Catalog published | Not started |
 
 ## M0 — Repository initialized
@@ -66,7 +66,7 @@ Acceptance: one command runs all tests, CI is green, and every benchmark figure 
 
 ## M6 — Public release approved
 
-- [ ] Every item in `docs/public-release-checklist.md` verified and the owner's approval recorded; the owner changes the visibility
+- [x] Every item in `docs/public-release-checklist.md` verified and the owner's approval recorded; the owner changes the visibility
 
 ## M7 — Upwork Catalog published
 
