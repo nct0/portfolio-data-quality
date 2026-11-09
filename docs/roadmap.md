@@ -12,7 +12,7 @@ Milestones match the GitHub milestones of this repository. A milestone is comple
 | M3 Automated validation complete | Done |
 | M4 Case studies complete | Done |
 | M5 Portfolio assets complete | In progress (Upwork and Catalog texts await the owner's review) |
-| M6 Public release approved | Done (2026-11-09); visibility change by the owner |
+| M6 Public release approved | Done: approved and made public by the owner (2026-11-09) |
 | M7 Upwork Catalog published | Not started |
 
 ## M0 — Repository initialized

@@ -1,6 +1,6 @@
 # Public release checklist — portfolio-data-quality
 
-**Current status: APPROVED by the owner on 2026-11-09 for commit `8df6c3e`. The repository stays private until the owner changes the visibility.**
+**Current status: APPROVED by the owner on 2026-11-09 for commit `8df6c3e`. Public since 2026-11-09 (changed by the owner).**
 
 This repository becomes public only after every item below has been verified and the owner has recorded explicit approval. A private repository is not automatically safe to publish: everything in its Git history becomes visible too. Deleting a file in a later commit does not remove it from history.
 
