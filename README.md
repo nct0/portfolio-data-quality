@@ -234,3 +234,13 @@ Python 3.11+ (standard library: `csv`, `sqlite3`, `tomllib`, `decimal`, `hashlib
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+Third-party packages are installed from PyPI, not copied into this repository:
+
+| Package | Used for | License |
+|---|---|---|
+| [XlsxWriter](https://github.com/jmcnamara/XlsxWriter) | Writing the Excel report (the only runtime dependency) | BSD-2-Clause |
+| [pytest](https://github.com/pytest-dev/pytest) | Running the tests | MIT |
+| [openpyxl](https://foss.heptapod.net/openpyxl/openpyxl) | Reading the report back in tests | MIT |
+
+Their own dependencies (et_xmlfile, iniconfig, packaging, pluggy, Pygments, colorama) are MIT, BSD or Apache-2.0 licensed.
