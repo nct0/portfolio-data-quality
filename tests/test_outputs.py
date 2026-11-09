@@ -56,14 +56,37 @@ def test_failed_write_keeps_the_previous_file(tmp_path):
 def test_locked_output_reports_out001(tmp_path, monkeypatch):
     target = tmp_path / "report.csv"
     export.write_csv(target, ["a"], [[1]])
+    attempts = []
 
     def locked(src, dst):
+        attempts.append(dst)
         raise PermissionError(13, "The process cannot access the file")
 
     monkeypatch.setattr(export.os, "replace", locked)
+    monkeypatch.setattr(export.time, "sleep", lambda seconds: None)
     with pytest.raises(OutputError) as error:
         export.write_csv(target, ["a"], [[2]])
     assert error.value.code == "OUT001" and "open in another program" in error.value.message
+    assert len(attempts) == len(export.REPLACE_RETRY_DELAYS) + 1
+    assert [p.name for p in tmp_path.iterdir()] == ["report.csv"]
+
+
+def test_a_briefly_held_output_is_replaced_after_a_retry(tmp_path, monkeypatch):
+    # A virus scanner or the search indexer on Windows can hold a just-written file for a moment.
+    target = tmp_path / "report.csv"
+    export.write_csv(target, ["a"], [[1]])
+    real_replace, refusals, sleeps = export.os.replace, [PermissionError(5, "Access is denied")] * 2, []
+
+    def held_twice(src, dst):
+        if refusals:
+            raise refusals.pop()
+        real_replace(src, dst)
+
+    monkeypatch.setattr(export.os, "replace", held_twice)
+    monkeypatch.setattr(export.time, "sleep", sleeps.append)
+    export.write_csv(target, ["a"], [[2]])
+    assert target.read_text(encoding="utf-8-sig").splitlines() == ["a", "2"]
+    assert sleeps == list(export.REPLACE_RETRY_DELAYS[:2])
     assert [p.name for p in tmp_path.iterdir()] == ["report.csv"]
 
 

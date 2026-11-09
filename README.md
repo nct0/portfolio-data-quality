@@ -53,7 +53,7 @@ Design and decisions: [architecture](docs/architecture.md), [feasibility](docs/f
 - **Review and approval workflow:** suggested corrections in a spreadsheet, applied only with a reviewer's decision, with a complete audit trail.
 - **Client-ready Excel reporting:** an 8-sheet workbook with a one-screen executive dashboard (KPI cards and native Excel charts), a separate reconciliation audit, and filterable detail sheets with highlighted exceptions, regenerated from the data on every run.
 - **Large and recurring files:** streaming input and on-disk staging, measured up to 1,004,621 rows; incremental runs for daily or monthly exports.
-- **Verifiable work:** 206 automated tests, CI, and benchmarks whose every figure comes from a committed result.
+- **Verifiable work:** 207 automated tests, CI, and benchmarks whose every figure comes from a committed result.
 
 ## 4. Evidence and measurable results
 
@@ -84,7 +84,7 @@ Six checks test this from independent sides rather than re-adding the counters t
 
 ### Tests
 
-`python -m pytest -q` runs 206 unit and integration tests in temporary folders. They cover normalization and validation rules, duplicates and conflicts across files and batches, malformed and wrongly encoded input, invalid configuration, incremental reruns, modified and removed files, reference-data and rule changes, correction approval, rejection and stale decisions, workbook contents and determinism, and row-level traceability. Tests compare the bytes of every business output for a full rebuild, a sequence of incremental runs and batch sizes 1, 7 and 1,000. CI runs them on Python 3.11 and 3.13 ([workflow](.github/workflows/ci.yml)).
+`python -m pytest -q` runs 207 unit and integration tests in temporary folders. They cover normalization and validation rules, duplicates and conflicts across files and batches, malformed and wrongly encoded input, invalid configuration, incremental reruns, modified and removed files, reference-data and rule changes, correction approval, rejection and stale decisions, workbook contents and determinism, and row-level traceability. Tests compare the bytes of every business output for a full rebuild, a sequence of incremental runs and batch sizes 1, 7 and 1,000. CI runs them on Python 3.11 and 3.13 ([workflow](.github/workflows/ci.yml)).
 
 ### Benchmarks
 
@@ -117,7 +117,7 @@ python -m pip install -r requirements-dev.txt -e .
 python -m pytest -q
 ```
 
-The test run ends with `206 passed` (on Linux `204 passed, 2 skipped`: two tests need Windows file locking or a German locale). Then run the pipeline on the three original exports:
+The test run ends with `207 passed` (on Linux `205 passed, 2 skipped`: two tests need Windows file locking or a German locale). Then run the pipeline on the three original exports:
 
 ```bash
 python -m order_quality run --input data/raw --out output

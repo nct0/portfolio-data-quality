@@ -6,6 +6,7 @@ import csv
 import json
 import os
 import tempfile
+import time
 from collections.abc import Iterable, Iterator
 from contextlib import contextmanager
 from pathlib import Path
@@ -15,6 +16,7 @@ from order_quality.errors import OutputError
 
 CSV_ENCODING = "utf-8-sig"  # the byte-order mark makes Excel open UTF-8 correctly
 _FORMULA_START = ("=", "+", "-", "@", "\t", "\r")
+REPLACE_RETRY_DELAYS = (0.05, 0.1, 0.2, 0.4)  # seconds between attempts; about 0.75 s in total
 
 
 def guard(value: Any) -> Any:
@@ -42,6 +44,14 @@ def atomic_open(path: Path, newline: str | None = "", encoding: str = CSV_ENCODI
 
 
 def replace(tmp: Path, path: Path) -> None:
+    """Replace `path` with `tmp`. On Windows a virus scanner or the search indexer can hold a freshly
+    written file for a moment, so a refused replace is retried briefly before it counts as locked."""
+    for delay in REPLACE_RETRY_DELAYS:
+        try:
+            os.replace(tmp, path)
+            return
+        except PermissionError:
+            time.sleep(delay)
     try:
         os.replace(tmp, path)
     except PermissionError as exc:

@@ -120,7 +120,7 @@ What the client sees:
 | Results under another date locale | 576 rows rejected, $293,883.05 | Identical to the default | `test_dates_and_generator_do_not_depend_on_the_process_locale` |
 | Formula-like text in outputs | Written as a formula | Written as text | `test_formula_like_values_are_neutralized_in_every_csv`, `test_formula_like_input_is_stored_as_text` |
 | Row with an extra field | Run stops | Row rejected as `MALFORMED_ROW`, run continues | `test_rows_with_too_many_or_too_few_fields_are_rejected_not_crashing` |
-| Automated tests | 5 | 206 | `python -m pytest -q` |
+| Automated tests | 5 | 207 | `python -m pytest -q` |
 | Run time, 5,020 rows | 0.19 s | 0.96 s (0.85–1.09) | 5x slower |
 | Run time, 100,469 rows | 1.58 s | 12.4 s (12.2–14.5) | 7.8x slower |
 | Peak memory, 100,469 rows | 161 MiB | 78.1 MiB | 52% less |
@@ -134,7 +134,7 @@ The benchmark figures use the same data, machine and method for both versions: f
 - **Incremental runs save less than one might expect.** An unchanged rerun of 100,469 rows takes 8.1 s against 12.4 s for a full run, because only reading and validation are skipped. Recomputing the rest every time is what makes an incremental run provably equal to a full rebuild.
 - **Disk instead of memory.** Peak memory stays bounded (147 MiB for 1,004,621 rows), but the state database and outputs take disk space: 51.3 MiB for 100,469 rows, 473 MiB for 1,004,621 rows.
 - **Quarantine holds back valid orders.** With the default `quarantine_all` policy, both versions of a conflicting order stay out of revenue until someone decides. A client who prefers the first version can set `keep_first`; the rows are then reported as `CONFLICT_OVERRIDDEN`.
-- **More code to maintain.** 3,045 lines in `src/order_quality/` (`wc -l` at `cc46d1f`) against the original 92, offset by 206 tests and a reference that documents every option, rule and code.
+- **More code to maintain.** 3,045 lines in `src/order_quality/` (`wc -l` at `cc46d1f`) against the original 92, offset by 207 tests and a reference that documents every option, rule and code.
 - **Excel limits.** Detail sheets stop at 100,000 rows by default, with a note pointing to the complete CSV file.
 
 ## Reproducibility notes

@@ -213,7 +213,7 @@ Issue codes appear in the order of this table.
 | `IN007` | Two input files have the same name | 4 |
 | `ST001` | The state file was written by an incompatible version | 1 |
 | `ST002` | The state file is not a readable database | 1 |
-| `OUT001` | An output file cannot be replaced (usually open in Excel) | 1 |
+| `OUT001` | An output file cannot be replaced (usually open in Excel), still refused after retries for about 0.75 s | 1 |
 
 Header names are matched case-insensitively, with spaces and hyphens read as underscores (`Order ID` is `order_id`). Extra columns are ignored. Blank lines are skipped.
 
